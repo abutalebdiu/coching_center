@@ -94,6 +94,43 @@ class StudentController extends Controller
     }
 
 
+
+
+     public function getbatchstudentforsms(Request $request)
+    {
+
+        $outputstudent = "";
+
+        $class_id           = $request->class_id;
+        $session_id         = $request->session_id;
+        $batch_setting_id   = $request->batch_setting_id;
+
+
+        $findbatchstudent = Student::where('class_id',$class_id)
+                    ->where('session_id',$session_id)
+                    ->where('batch_setting_id',$batch_setting_id)
+                    ->where('status',1)
+                    ->get();
+
+        if($findbatchstudent)
+        {
+            foreach($findbatchstudent as $student)
+            {
+                $outputstudent .= "<li> $student->user_id </li>";
+            }
+        }
+        
+
+        return $outputstudent;
+
+    }
+
+
+
+
+
+
+
     public function getbatchsetting(Request $request)
     {
         $batch = "<option value=''> Select Batch </option>";

@@ -30,15 +30,15 @@
                 <a href="{{ route('sms_templete.create') }}" class="btn btn-primary btn-xs pull-right mb-2"> <i class="fa fa-plus"></i> Add New</a>
 
                 <br>
-
-                <table class="table table-bordered table-hovered">
+                <div class="table-responsive">
+                    <table id="datatables" class="table table-bordered table-hovered">
                     <thead>
                         <tr>
                             <th>Serial</th>
                             <th>Name</th>
-                            <th width="70%">Message</th>
+                            <th width="68%">Message</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <th width="15%">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,29 +55,14 @@
                                 @endif
                             </td>
                              <td>
-
-
-
-                            <div class="dropdown">
-                                <button type="button" class="btn btn-xs  btn-primary dropdown-toggle" data-toggle="dropdown">
-                                   <i class="fa fa-cogs"> </i> Action 
-                                </button>
-                                <div class="dropdown-menu">
-
-                                 {{--    <a href="{{ route('sms_templete.edit', $template->id) }}" class="dropdown-item"><i class="fa fa-edit"></i> Edit</a> --}}
-                                    <a href="{{ route('sms_templete.destroy',$template->id) }}" class="dropdown-item"><i class="fa fa-trash"></i> Delete</a>
-                                    
-                                    
-                                </div>
-                            </div>
-
-
-                               
+                                <a href="{{ route('sms_templete.edit', $template->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="{{ route('sms_templete.destroy',$template->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
+                </div>
             </div>
          </div>
     </div>

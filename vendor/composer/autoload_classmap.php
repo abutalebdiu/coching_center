@@ -124,6 +124,7 @@ return array(
     'App\\Models\\BatchDayTime' => $baseDir . '/app/Models/BatchDayTime.php',
     'App\\Models\\BatchSetting' => $baseDir . '/app/Models/BatchSetting.php',
     'App\\Models\\Blog' => $baseDir . '/app/Models/Blog.php',
+    'App\\Models\\BlogCategory' => $baseDir . '/app/Models/BlogCategory.php',
     'App\\Models\\BoardQuestionType' => $baseDir . '/app/Models/BoardQuestionType.php',
     'App\\Models\\Classes' => $baseDir . '/app/Models/Classes.php',
     'App\\Models\\Contact' => $baseDir . '/app/Models/Contact.php',

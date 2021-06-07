@@ -70,8 +70,15 @@
                     <div class="form-group">
                         <label for="message" class="col-sm-12 control-label">Message</label>
                         <div class="col-sm-12">
-                             <textarea name="message"  class="form-control" rows="10" placeholder="write sms"></textarea>
+                             <textarea name="message" id="message"  class="form-control" rows="10" placeholder="Write sms here to send Batch Student"></textarea>
                             <span class="text-danger">{{ $errors->first('message') }}</span>
+
+                            <ul id="sms-counter" class="list-unstyled pt-4">
+                              <li>Length: <span class="length"></span></li>
+                              <li>Messages: <span class="messages"></span></li>
+                              <li>Per Message: <span class="per_message"></span></li>
+                              <li>Remaining: <span class="remaining"></span></li>
+                            </ul>
                              
                         </div>
                     </div>

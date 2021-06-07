@@ -1,12 +1,12 @@
 @extends('backend.layouts.app')
-@section('title','SMS Templete')
+@section('title','Add New SMS Templete')
 @section('content')
 
 
     <div id="content" class="content">
         <div class="panel panel-inverse">
             <div class="panel-heading">
-                <h4 class="panel-title">SMS Templete  </h4>
+                <h4 class="panel-title">Add New SMS Templete  </h4>
                 <div class="panel-heading-btn">
                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand">
                         <i class="fa fa-expand"></i>
@@ -24,11 +24,11 @@
                 </div>
             </div>
             <div class="panel-body">
-                <a href="{{ route('sms_templete.create') }}" class="btn btn-primary btn-sm float-right mb-3" id="create-new-class"><i class="fa fa-plus"></i> Add sms template</a>
+                <a href="{{ route('sms_templete.index') }}" class="btn btn-primary btn-sm float-right mb-3" id="create-new-class"><i class="fa fa-list"></i> SMS template List</a>
                 <form action="{{ route('sms_templete.store') }}" method="post">
                     @CSRF
                     <div class="form-group">
-                        <label for="name">name</label>
+                        <label for="name">Name</label>
                         <input type="text" name="name" id="name" class="form-control" placeholder="Sms Template Name">
                         @error('name')
                         <span class="text-danger">{{ $message }}</span>

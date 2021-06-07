@@ -38,8 +38,8 @@
                         @foreach($smshistories as $smshistory)
                          <tr>
                              <td>{{ $loop->iteration }}</td>
-                             <td>{{ $smshistory->user_id }}</td>
-                             <td>{{ $smshistory->user_id }}</td>
+                             <td>{{ $smshistory->user?$smshistory->user->useruid:'' }}</td>
+                             <td>{{ $smshistory->user?$smshistory->user->name:'' }}</td>
                              <td>{!! $smshistory->message !!}</td>
                              <td>
                                  @if($smshistory->status==1)

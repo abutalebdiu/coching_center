@@ -80,7 +80,7 @@
                             <select name="status" class="form-control">
                                 <option value=""> select status</option>
                                 <option {{ $user->status == 1 ? 'selected' : ''  }} value="1">Active</option>
-                                <option {{ $user->status == 0 ? 'selected' : ''  }} value="0">Inactiove</option>
+                                <option {{ $user->status == 2 ? 'selected' : ''  }} value="2">Inactive</option>
                             </select>
                             <div class="text-danger">{{ $errors->first('status') }}</div>
                         </div>

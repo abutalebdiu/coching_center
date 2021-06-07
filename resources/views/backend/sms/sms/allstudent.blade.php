@@ -6,7 +6,7 @@
     <div id="content" class="content">
         <div class="panel panel-inverse">
             <div class="panel-heading">
-                <h4 class="panel-title">All Student Send SMS  </h4>
+                <h4 class="panel-title">All Student Send SMS </h4>
                 <div class="panel-heading-btn">
                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand">
                         <i class="fa fa-expand"></i>
@@ -24,16 +24,22 @@
                 </div>
             </div>
             <div class="panel-body">
-                <form action="{{ route('subject.store') }}" method="post">
+                <form action="" method="post">
                     @CSRF
                     
- 
                     <div class="form-group">
                         <label for="message" class="col-sm-12 control-label">Message</label>
                         <div class="col-sm-12">
-                             <textarea name="message"  class="form-control" rows="10" placeholder="write sms"></textarea>
+                             <textarea name="message" id="message"  class="form-control" rows="10" placeholder="Write sms here to send all students"></textarea>
                             <span class="text-danger">{{ $errors->first('message') }}</span>
-                             
+
+                            <ul id="sms-counter" class="list-unstyled pt-4">
+                              <li>Length: <span class="length"></span></li>
+                              <li>Messages: <span class="messages"></span></li>
+                              <li>Per Message: <span class="per_message"></span></li>
+                              <li>Remaining: <span class="remaining"></span></li>
+                            </ul>
+                                                         
                         </div>
                     </div>
 

@@ -609,6 +609,7 @@ class ComposerStaticInitd1b159bd4cf0c553c9df4667ed8ba24d
         'App\\Models\\BatchDayTime' => __DIR__ . '/../..' . '/app/Models/BatchDayTime.php',
         'App\\Models\\BatchSetting' => __DIR__ . '/../..' . '/app/Models/BatchSetting.php',
         'App\\Models\\Blog' => __DIR__ . '/../..' . '/app/Models/Blog.php',
+        'App\\Models\\BlogCategory' => __DIR__ . '/../..' . '/app/Models/BlogCategory.php',
         'App\\Models\\BoardQuestionType' => __DIR__ . '/../..' . '/app/Models/BoardQuestionType.php',
         'App\\Models\\Classes' => __DIR__ . '/../..' . '/app/Models/Classes.php',
         'App\\Models\\Contact' => __DIR__ . '/../..' . '/app/Models/Contact.php',
