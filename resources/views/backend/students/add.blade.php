@@ -305,7 +305,7 @@
             getClassType();
         });
 
-         $(document).on('change','.class_id ,.session_id', function () {
+        $(document).on('change','.class_id ,.session_id', function () {
               getBatchSetting();
         });
 
