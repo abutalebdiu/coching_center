@@ -24,12 +24,12 @@
                 </div>
             </div>
             <div class="panel-body">
-                <a href="{{ route('sms_templete.index') }}" class="btn btn-primary btn-sm float-right mb-3" id="create-new-class"><i class="fa fa-plus"></i> Back List</a>
-                <form action="{{ route('sms_templete.update',$template->id) }}" method="post">
+                <a href="{{ route('sms_templete.index') }}" class="btn btn-primary btn-sm float-right mb-3" id="create-new-class"><i class="fa fa-list"></i>SMS template List</a>
+                <form action="{{ route('sms_templete.update',$templete->id) }}" method="post">
                     @CSRF
                     <div class="form-group">
-                        <label for="name">name</label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Sms Template Name">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" value="{{ $templete->name }}" id="name" class="form-control" placeholder="Sms Template Name">
                         @error('name')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -38,7 +38,7 @@
 
                     <div class="form-group">
                         <label for="name">Message</label>
-                         <textarea name="message" id="" class="form-control" placeholder="Enter Message Content">{{ old('message') }}</textarea>
+                         <textarea name="message" id="" class="form-control" placeholder="Enter Message Content">{{ $templete->message }}</textarea>
                         @error('name')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -49,8 +49,8 @@
                     <div class="form-group">
                         <label for="image">Status</label>
                         <select name="status" id="status" class="form-control">
-                            <option value="1">Active</option>
-                            <option value="2">Inactive</option>
+                            <option {{ $templete->status == 1 ? 'selected' :'' }} value="1">Active</option>
+                            <option {{ $templete->status == 2 ? 'selected' :'' }} value="2">Inactive</option>
                         </select>
                         @error('status')
                         <span class="text-danger">{{ $message }}</span>

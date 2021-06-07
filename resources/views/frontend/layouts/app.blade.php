@@ -65,17 +65,14 @@
         <section class="header-section">
             <div class="container">
                 <div class="menubar">
-                    <ul>
+                     <ul>
                         <li><a href="{{ route('frontend') }}">home</a></li>
                         <li><a href="about-us.html">about us</a></li>
                         <li><a href="product.html">Downloads</a></li>
-                        <li class="btn-sub"><a href="#">Admissions<i class="fa fa-angle-down"></i></a>
-                            <div class="sub-menu"> <a href="service-details.html">Online Admission</a> <a href="service-details.html">Offline Admission</a> </div>
-                        </li>
+                        <li><a href="{{ route('allbatch') }}"> Admissions </a></li>
                         <li><a href="contect.html">Payments</a></li>
-                        <li><a href="contect.html">Blogs</a></li>
-                        <li><a href="contect.html">Videos</a></li>
-                        <li><a href="notic.html">Notices</a></li>
+                        <li><a href="{{ route('blogs') }}">Blogs</a></li>
+                        <li><a href="{{ route('notices') }}">Notices</a></li>
                         <li><a href="{{ route('contact') }}">contect us</a></li>
                     </ul>
                 </div>

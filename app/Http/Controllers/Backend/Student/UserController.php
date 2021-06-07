@@ -45,7 +45,7 @@ class UserController extends Controller
             'role_id'   => 'required',
             'name'      => 'required',
             'email'     => 'required|unique:users|email',
-            'mobile'    => 'required',
+            'mobile'    => 'required|unique::users',
             'password'  => 'required',
             'status'    => 'required',
         ]);

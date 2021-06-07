@@ -9,7 +9,9 @@ use DB;
 use App\Models\Notice;
 use App\Models\Blog;
 use App\Models\Contact;
-
+use App\Models\BlogCategory;
+use App\Models\Sessiones;
+use App\Models\Classes;
 
 class FrontendController extends Controller
 {
@@ -27,6 +29,23 @@ class FrontendController extends Controller
 
 
 
+
+	public function allbatch()
+	{
+
+		$data['classes'] 	= Classes::all();
+		$data['sessiones']  = Sessiones::all();
+
+ 
+
+		$data['BatchSettings'] =  BatchSetting::where('status',1)->get();
+		return view('frontend.pages.allbatch',$data);
+	}
+
+
+
+
+
 	/*for batch details */
 
 	public function batchenroll($id)
@@ -36,34 +55,56 @@ class FrontendController extends Controller
 	}
 
 
-	public function details($slug)
-	{	
-
-	
 
  
-		return view('frontend.pages.detail',$data);
-	}
 
 
 
-	public function category($slug)
+
+	/*for blogs*/
+
+
+	public function blogs()
 	{
-
-		 
-
-		return view('frontend.pages.category',$data);
+		$data['blogs'] = Blog::latest()->get();
+		return view('frontend.pages.blogs',$data);
 	}
 
+	public function blogdetail($slug)
+	{
+		$data['categories'] = BlogCategory::all();
 
+		$data['blogs'] = Blog::latest()->limit(6)->whereNotIn('slug',[$slug])->get();
+
+		$data['blog'] = Blog::where('slug',$slug)->first();
+
+		return view('frontend.pages.blogdetail',$data);
+ 	}
+
+
+
+
+
+
+	/*for notices */
+
+	public function notices()
+	{
+		$data['notices'] = Notice::latest()->get();
+		return view('frontend.pages.notices',$data);
+	}
+
+	public function noticedetail($slug)
+	{
+		$data['notices'] = Notice::latest()->get();
+		return view('frontend.pages.noticedetail',$data);
+	}
 
 
 
 
 	public function contact()
 	{
-
-
 		return view('frontend.pages.contact');
 	}
 

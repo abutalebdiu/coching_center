@@ -323,6 +323,7 @@
 
 
     <script src="{{ asset('public/backend') }}/assets/js/app.min.js" type="text/javascript"></script>
+    
     <script src="{{ asset('public/backend') }}/assets/js/theme/default.min.js" type="text/javascript"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
@@ -335,7 +336,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
 
-
+    <script src="{{ asset('public/backend') }}/assets/js/sms_counter.min.js" type="text/javascript"></script>
 
 
          <script>
@@ -375,6 +376,9 @@
 
         </script>
 
+        <script>
+            $('#message').countSms('#sms-counter');
+        </script>
 
         <script>
             $(document).on('click', '#delete', function(e) {

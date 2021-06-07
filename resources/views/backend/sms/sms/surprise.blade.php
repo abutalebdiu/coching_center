@@ -74,17 +74,17 @@
                                 padding: 0 10px;
                              }   
                         </style>
-                         <div class="col-sm-12 surprisesms">
+                         <div class="col-sm-12 ">
                             <p><span><input type="checkbox" name=""></span>Check all</p>
-                            <p><span><input type="checkbox" name=""></span> <span>1230254</span> <span>Md Abu Taleb</span></p>
+                            <ul>
+                                
+                           
+                            <div class="surprisesms">
+                                
+                            </div>
 
-                            <p><span><input type="checkbox" name=""></span> <span>1230254</span> <span>Md Abu Taleb</span></p>
-
-                            <p><span><input type="checkbox" name=""></span> <span>1230254</span> <span>Md Abu Taleb</span></p>
-
-                            <p><span><input type="checkbox" name=""></span> <span>1230254</span> <span>Md Abu Taleb</span></p>
-
-                            <p><span><input type="checkbox" name=""></span> <span>1230254</span> <span>Md Abu Taleb</span></p>
+                             </ul>
+                             
                               
                          </div>
                     </div>
@@ -92,8 +92,16 @@
                     <div class="form-group">
                         <label for="message" class="col-sm-12 control-label">Message</label>
                         <div class="col-sm-12">
-                             <textarea name="message"  class="form-control" rows="10" placeholder="write sms"></textarea>
+                             <textarea name="message" id="message"  class="form-control" rows="10" placeholder="Write sms here"></textarea>
                             <span class="text-danger">{{ $errors->first('message') }}</span>
+
+                            <ul id="sms-counter" class="list-unstyled pt-4">
+                              <li>Length: <span class="length"></span></li>
+                              <li>Messages: <span class="messages"></span></li>
+                              <li>Per Message: <span class="per_message"></span></li>
+                              <li>Remaining: <span class="remaining"></span></li>
+                            </ul>
+                             
                              
                         </div>
                     </div>
@@ -121,6 +129,7 @@
         $(document).ready(function(){
             getBatchSetting();
             getClassType();
+          
         });
 
          $(document).on('change','.class_id ,.session_id', function () {
@@ -181,8 +190,37 @@
                     });
                 }
             }
+ 
             
         });
+
+
+  $(document).on('change','.batch_setting_id', function () {
+
+                var class_id          = $('.class_id').val();
+                var session_id        = $('.session_id').val();
+                var batch_setting_id  = $('.batch_setting_id').val();
+
+
+                  $.ajax({
+                        type: "get",
+                        url: "{{ route('getbatchstudentforsms') }}",
+                        data: {class_id:class_id,session_id:session_id,batch_setting_id:batch_setting_id},
+                        success: function (data) {
+                            if(data.status == true)
+                            {
+                                $(".surprisesms").html(data);
+                            }else{
+                                $(".surprisesms").html(data);
+                            }
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+                    });
+        });
+
+
     </script>
 
 

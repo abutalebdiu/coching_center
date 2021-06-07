@@ -22,6 +22,7 @@ use App\Models\BatchSetting;
 use App\Models\StudentType;
 use DB;
 use Validator;
+use Auth;
 class FeeAmountSettingController extends Controller
 {
     /**

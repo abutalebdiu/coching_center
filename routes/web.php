@@ -30,7 +30,9 @@ Route::get('clear', function() {
 
 
 Route::get('/','FrontendController@index')->name('frontend');
+Route::get('allbatch','FrontendController@allbatch')->name('allbatch');
 Route::get('batch/enroll/{id}','FrontendController@batchenroll')->name('batch.enroll');
+
 
 
 
@@ -41,15 +43,8 @@ Route::get('notices','FrontendController@notices')->name('notices');
 Route::get('notice/detail/{id}','FrontendController@noticedetail')->name('notice.detail');
 
 
-
-
 Route::get('contact','FrontendController@contact')->name('contact');
 Route::post('contactstore','FrontendController@contactstore')->name('contactstore');
-
-
-
-
-
 
 
 
@@ -168,6 +163,12 @@ Route::group(['namespace'=>'Backend\Student','middleware'=>['auth','admin']],fun
     //ajax call
     Route::get('get/batch/setting','StudentController@getbatchsetting')->name('get.batch.setting');
     Route::get('get/class/type/by/batch/setting','StudentController@getClassTypeByBatchSetting')->name('get_class_type_by_batch_setting');
+
+
+    Route::get('get/batch/student/sms','StudentController@getbatchstudentforsms')->name('getbatchstudentforsms');
+
+
+
 
     /**Promotion class */
     Route::group(['prefix'=>'student','as'=>'admin.'],function(){
@@ -292,23 +293,6 @@ Route::group(['prefix'=>'admin/user','namespace'=>'Backend\Student','middleware'
 
 
 
-
-/* ========================= sms controller  =================================*/
-
-Route::group(['namespace'=>'Backend\SMS','middleware'=>['auth','admin']],function(){
-    Route::get('all/student/sms','SmsController@allstudentsms')->name('all.student.sms');
-    Route::post('all/student/sms/send','SmsController@allstudentsmssend')->name('all.student.sms.send');
-
-    Route::get('batch/sms','SmsController@batchsms')->name('batch.sms');
-    Route::post('batch/sms/send','SmsController@batchsmssend')->name('batch.sms.send');
-
-    Route::get('single/sms','SmsController@singlesms')->name('single.sms');
-    Route::post('single/sms/send','SmsController@singlesmssend')->name('single.sms.send');
-
-    Route::get('surprise/sms','SmsController@customsms')->name('surprise.sms');
-    Route::post('surprise/sms/send','SmsController@customsmssend')->name('surprise.sms.send');
-
-});
 
 
 
@@ -465,7 +449,7 @@ Route::group(['namespace' => 'Backend\Website' ,'middleware' => ['auth', 'admin'
          Route::get('destroy/{id}','SliderController@destroy')->name('slider.destroy');
     });
 
-    Route::group(['prefix'=>'sms_history'],function (){
+    Route::group(['prefix'=>'contact'],function (){
         Route::get('index','ContactController@index')->name('contact.index');
         Route::get('create','ContactController@create')->name('contact.create');
         Route::post('store','ContactController@store')->name('contact.store');
@@ -592,6 +576,31 @@ Route::group(['namespace' => 'Backend\Sheet' ,'middleware' => ['auth', 'admin']]
         Route::post('update/{id}','SheetController@update')->name('sheet.update');
         Route::get('destroy/{id}','SheetController@destroy')->name('sheet.destroy');
 });
+
+
+
+
+
+
+
+/* ========================= sms controller  =================================*/
+
+Route::group(['namespace'=>'Backend\SMS','middleware'=>['auth','admin']],function(){
+    Route::get('all/student/sms','SmsController@allstudentsms')->name('all.student.sms');
+    Route::post('all/student/sms/send','SmsController@allstudentsmssend')->name('all.student.sms.send');
+
+    Route::get('batch/sms','SmsController@batchsms')->name('batch.sms');
+    Route::post('batch/sms/send','SmsController@batchsmssend')->name('batch.sms.send');
+
+    Route::get('single/sms','SmsController@singlesms')->name('single.sms');
+    Route::post('single/sms/send','SmsController@singlesmssend')->name('single.sms.send');
+
+    Route::get('surprise/sms','SmsController@customsms')->name('surprise.sms');
+    Route::post('surprise/sms/send','SmsController@customsmssend')->name('surprise.sms.send');
+
+});
+
+
 
 
 Route::group(['namespace' => 'Backend\SMS' ,'middleware' => ['auth', 'admin']], function () {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Website;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use function GuzzleHttp\Promise\all;

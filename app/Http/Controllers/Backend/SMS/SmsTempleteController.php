@@ -77,7 +77,10 @@ class SmsTempleteController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['templete'] = SmsTemplete::find($id);
+
+        return view('backend.sms.smstemplete.edit',$data);
+
     }
 
     /**
@@ -89,7 +92,25 @@ class SmsTempleteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'=> 'required',
+            'message'=> 'required',
+            'status'=> 'required'
+        ]);
+
+        $sms_tem =  SmsTemplete::find($id);
+        $sms_tem->name = $request->name;
+        $sms_tem->message = $request->message;
+        $sms_tem->status = $request->status;
+
+        $sms_tem->save();
+
+        $notification = array(
+            'message' => 'Sms Template Updated Successfully!',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('sms_templete.index')->with($notification);
     }
 
     /**

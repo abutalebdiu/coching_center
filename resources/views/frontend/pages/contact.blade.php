@@ -8,7 +8,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="section-title py-4">
+                    <div class="section-title py-1">
                         <h2>contect us</h2>
                         <p>send a message to us</p>
                     </div>
@@ -51,11 +51,11 @@
                 </div>
                 <div class="col-12 col-md-6 mt-4">
                     <div class="contect-location">
-                        <p class="wow animate__ animate__fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;"><span><i class="fa fa-map-marker pr-2"></i> Head office :</span> 2nd Floor,Hazi Sirajul Islam Market. Shipahipara, Rampal, Munshiganj</p>
+                        <p class="wow animate__ animate__fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;"><span><i class="fa fa-map-marker pr-2"></i>Office Address :</span> {{ $websetting->state_address }} {{ $websetting->local_address }} {{ $websetting->address }}</p>
 
-                        <p class="wow animate__ animate__fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;"><span><i class="fa fa-phone pr-2"></i>Mobile - </span> 01990-575888</p>
+                        <p class="wow animate__ animate__fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;"><span><i class="fa fa-phone pr-2"></i>Mobile - </span> {{ $websetting->phone }}</p>
 
-                        <p class="wow animate__ animate__fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;"><span><i class="fa fa-envelope-o pr-2"></i>Email - </span>info@overall.com.bd</p>
+                        <p class="wow animate__ animate__fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;"><span><i class="fa fa-envelope-o pr-2"></i>Email - </span> {{ $websetting->email }}</p>
 
                         <p class="wow animate__ animate__fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;"><span><i class="fa fa-facebook pr-2"></i>facebook group - </span><a href="#">facebook</a></p>
                     </div>

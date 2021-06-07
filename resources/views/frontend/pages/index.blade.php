@@ -140,9 +140,10 @@
                         <div class="p-blog-box wow animate__animated animate__fadeInUp">
                             <div class="card">
                                 <div class="blog-img">
-                                    <a href="blog-details.html"> <img src="{{ asset($blog->image) }}" class="card-img-top" alt="blog-photo"> </a>
+                                    <a href="{{ route('blog.detail',$blog->slug) }}"> <img src="{{ asset($blog->image) }}" class="card-img-top" alt="blog-photo"> </a>
                                 </div>
-                                <div class="card-body custom-card"> <a href="#">
+                                <div class="card-body custom-card">
+                                 <a href="{{ route('blog.detail',$blog->slug) }}">
                                         {{ $blog->title }}
                                     </a> <span>
                                         <i class="fa fa-user"></i> {{ $blog->user?$blog->user->name:'' }}
@@ -156,7 +157,7 @@
                 
 
                 <div class="col-12">
-                    <div class="text-center pt-4"> <a href="blog.html" class="btn btn-custom">See More</a> </div>
+                    <div class="text-center pt-2"> <a href="{{ route('blogs') }}" class="btn btn-custom">See More</a> </div>
                 </div>
             </div>
         </div>
