@@ -1,0 +1,54 @@
+@media only screen and (max-width:991px) {
+	.blog-main {
+		padding-right: 0;
+		border-right: none;
+	}
+}
+
+@media only screen and (max-width:767px) {
+	.ht-right {
+		text-align: right;
+	}
+
+	.ht-left {
+		text-align: center;
+	}
+
+	.ht-left span {
+		display: inline;
+	}
+
+	.menubar {
+		display: none;
+	}
+
+	.mobile-btn i {
+		display: block;
+	}
+
+	.ht-middle {
+		text-align: right;
+		padding: 10px 0;
+	}
+	.ht-right {
+		text-align: left;
+	}
+}
+@media only screen and (max-width:575px) {
+	.ht-middle {
+		text-align: center;
+		padding: 10px 0;
+	}
+	.ht-right{
+		text-align: center;
+		padding: 10px 0;
+	}
+}
+
+
+@media only screen and (max-width:519px) {
+	.ht-left span {
+		display: inline;
+	}
+
+}
