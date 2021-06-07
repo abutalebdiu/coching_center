@@ -26,61 +26,61 @@
                             <th colspan="4">
                                 Student Personal Information 
 
-                                <a href="{{ route('admin.promotion-class.create','student_id='.$student->id) }}" class="btn btn-primary btn-sm pull-right">
+                               {{--   <a href="{{ route('admin.promotion-class.create','student_id='.$student->user->id) }}" class="btn btn-primary btn-sm pull-right">
                                     <i class="fa fa-check"></i> 
                                     Promotion
-                                </a>
+                                </a>  --}}
                             </th>
                         </tr>
                         <tr>
                             <th width="10%">Student ID</th>
-                            <td width="40%">{{ $student->useruid }}</td>
+                            <td width="40%">{{ $student->user->useruid }}</td>
                             <th width="10%">Name</th>
-                            <td width="40%">{{ $student->name }}</td>
+                            <td width="40%">{{ $student->user->name }}</td>
                         </tr>
 
                         <tr>
                             <th width="10%">Father Name</th>
-                            <td width="40%">{{ $student->studentInfo?$student->studentinfo->father:'' }}</td>
+                            <td width="40%">{{ $student->user->studentInfo?$student->user->studentinfo->father:'' }}</td>
                             <th width="10%">Mother</th>
-                            <td width="40%">{{ $student->studentinfo?$student->studentinfo->mother:'' }}</td>
+                            <td width="40%">{{ $student->user->studentinfo?$student->user->studentinfo->mother:'' }}</td>
                         </tr>
 
                         <tr>
                             <th width="10%">Guardian Mobile</th>
-                            <td width="40%">{{ $student->studentinfo?$student->studentinfo->guardian_mobile:'' }}</td>
+                            <td width="40%">{{ $student->user->studentinfo?$student->user->studentinfo->guardian_mobile:'' }}</td>
                             <th width="10%">Own Mobile</th>
-                            <td width="40%">{{ $student->studentinfo?$student->studentinfo->own_mobile:'' }}</td>
+                            <td width="40%">{{ $student->user->studentinfo?$student->user->studentinfo->own_mobile:'' }}</td>
                         </tr>
                         <tr>
                             <th width="10%">Email</th>
-                            <td width="40%">{{ $student->studentinfo?$student->studentinfo->email:'' }}</td>
+                            <td width="40%">{{ $student->user->studentinfo?$student->user->studentinfo->email:'' }}</td>
                             <th width="10%">Whatsapp</th>
-                            <td width="40%">{{ $student->studentinfo?$student->studentinfo->whatsapp_number:'' }}</td>
+                            <td width="40%">{{ $student->user->studentinfo?$student->user->studentinfo->whatsapp_number:'' }}</td>
                         </tr>
 
                         <tr>
                             <th width="10%">facebook Id Link</th>
-                            <td width="40%"> <a href="{{ $student->studentinfo?$student->studentinfo->facebook_id:'' }}" target="_blank">Facebook</a> </td>
+                            <td width="40%"> <a href="{{ $student->user->studentinfo?$student->user->studentinfo->facebook_id:'' }}" target="_blank">Facebook</a> </td>
                             <th width="10%">Bkash Number</th>
-                            <td width="40%">{{ $student->studentinfo?$student->studentinfo->bkash_number:'' }}</td>
+                            <td width="40%">{{ $student->user->studentinfo?$student->user->studentinfo->bkash_number:'' }}</td>
                         </tr>
                         <tr>
                             <th width="10%">Note</th>
-                            <td width="40%">{{ $student->studentinfo?$student->studentinfo->notes:'' }} </td>
+                            <td width="40%">{{ $student->user->studentinfo?$student->user->studentinfo->notes:'' }} </td>
                             <th width="10%">Address</th>
-                            <td width="40%">{{ $student->studentinfo?$student->studentinfo->address:'' }}</td>
+                            <td width="40%">{{ $student->user->studentinfo?$student->user->studentinfo->address:'' }}</td>
                         </tr>
                         <tr>
                             <th width="10%">School Name</th>
-                            <td width="40%"> {{ $student->students?$student->students->school_name:NULL }} </td>
+                            <td width="40%"> {{ $student->user->students?$student->user->students->school_name:NULL }} </td>
                             <th width="10%">Status</th>
                             <td width="40%">
-                                @if($student->studentinfo?$student->studentinfo->status:'' == 1)
+                                @if($student->user->studentinfo?$student->user->studentinfo->status:'' == 1)
                                 <p class="btn btn-primary btn-sm">Active</p>
-                                @elseif($student->studentinfo?$student->studentinfo->status:'' == 2)
+                                @elseif($student->user->studentinfo?$student->user->studentinfo->status:'' == 2)
                                 <p class="btn btn-warning btn-sm">Deactive</p>
-                                @elseif($student->studentinfo?$student->studentinfo->status:'' == 0)
+                                @elseif($student->user->studentinfo?$student->user->studentinfo->status:'' == 0)
                                 <p class="btn btn-danger btn-sm">Deleted</p>
                                 @endif
                             </td>
@@ -92,36 +92,40 @@
                         </tr>
                         <tr>
                             <th>Class</th>
-                            <td>{{ $student->students?$student->students->classes?$student->students->classes->name:NULL:NULL }}</td>
+                            <td>{{ $student->classes?$student->classes->name:NULL }}</td>
                             <th> Session</th>
-                            <td>{{ $student->students?$student->students->sessiones?$student->students->sessiones->name:NULL:NULL }}</td>
+                            <td>{{ $student->sessiones?$student->sessiones->name:NULL }}</td>
                         </tr>
                         <tr>
                             <th>Batch</th>
-                            <td>{{ $student->students?$student->students->batchsetting?$student->students->batchsetting->batch_name:NULL:NULL }}</td>
+                            <td>{{ $student->batchsetting?$student->batchsetting->batch_name:NULL }}</td>
+                            <th>Batch Type</th>
+                            <td>{{ $student->batchTypes?$student->batchTypes->name:NULL }}</td>
+                        </tr>
+                        <tr>
                             <th>Roll</th>
-                            <td>{{ $student->students?$student->students->roll:NULL }}</td>
+                            <td>{{ $student->roll }}</td>
                         </tr>
                         <tr>
                             <th>Admission Date</th>
-                            <td>{{ $student->students?$student->students->admission_date:NULL }}</td>
+                            <td>{{ $student->admission_date }}</td>
 
-                            <th>Admission Month</th>
-                            <td>{{ $student->students?$student->students->month?$student->students->month->name:NULL:NULL }}</td>
+                            <th>Start Month</th>
+                            <td>{{ $student->month?$student->month->name:NULL }}</td>
                         </tr>
 
                         <tr>
                             <th>Student Type</th>
                             <td>
-                                {{ $student->students?$student->students->studentype?$student->students->studentype->name:NULL:NULL }}
+                                {{ $student->studentype?$student->studentype->name:NULL }}
                             </td>
                             <th width="10%">Status</th>
                             <td width="40%">
-                                @if($student->students?$student->students->activate_status:NULL ==1)
+                                @if($student->activate_status ==1)
                                 <p class="btn btn-primary btn-sm">Active</p>
-                                @elseif($student->students?$student->students->activate_status:NULL ==2)
+                                @elseif($student->activate_status ==2)
                                 <p class="btn btn-warning btn-sm">Deactive</p>
-                                @elseif($student->students?$student->students->activate_status:NULL ==0)
+                                @elseif($student->activate_status ==0)
                                 <p class="btn btn-danger btn-sm">Deleted</p>
                                 @endif
                             </td>

@@ -269,7 +269,7 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        $data['student'] = User::FindOrFail($id);//Student::FindOrFail($id);
+        $data['student'] = Student::FindOrFail($id);
         return view('backend.students.show',$data);
     }
 
