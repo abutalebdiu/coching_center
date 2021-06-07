@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Choching Center</title>
-    <link rel="shortcut icon" href="photos/favicon.png" type="image/x-icon">
+    <title>@yield('title') - {{ $websetting->site_name }}</title>
+    <link rel="shortcut icon" href="{{ asset($websetting->favicon) }}" type="image/x-icon">
     <!--    google font-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700;800&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
@@ -42,7 +42,7 @@
                 <div class="header-top">
                     <div class="row">
                         <div class="col-12 col-md-5 align-self-center">
-                            <div class="ht-left"> <span><i class="fa fa-phone"></i><span class="call">Call Now: </span> 01816781772</span>
+                            <div class="ht-left"> <span><i class="fa fa-phone"></i><span class="call">Call Now: </span> {{ $websetting->phone }}</span>
                             </div>
                         </div>
                         <div class="col-12 col-sm-4 col-md-2">
@@ -67,7 +67,7 @@
                 <div class="menubar">
                      <ul>
                         <li><a href="{{ route('frontend') }}">home</a></li>
-                        <li><a href="about-us.html">about us</a></li>
+                        <li><a href="{{ route('about') }}">about us</a></li>
                         <li><a href="product.html">Downloads</a></li>
                         <li><a href="{{ route('allbatch') }}"> Admissions </a></li>
                         <li><a href="contect.html">Payments</a></li>

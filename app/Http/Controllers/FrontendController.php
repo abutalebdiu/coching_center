@@ -30,6 +30,17 @@ class FrontendController extends Controller
 
 
 
+	public function about()
+	{
+		return view('frontend.pages.about');
+	}
+
+
+
+
+
+
+
 	public function allbatch()
 	{
 
@@ -90,7 +101,7 @@ class FrontendController extends Controller
 
 	public function notices()
 	{
-		$data['notices'] = Notice::latest()->get();
+		$data['notices'] = Notice::latest()->paginate(2);
 		return view('frontend.pages.notices',$data);
 	}
 

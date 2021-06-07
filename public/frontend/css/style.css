@@ -366,44 +366,35 @@ header {
 
 /*slider section end */
 
-/*about-section*/
-.section-title{
-	text-align: center;
-}
-.section-title p{
-	color: var(--pgc);
-	text-transform: capitalize;
+/*ABOUT SECTION*/
+.about-section{
+	background-color: #f3f3f3;
 }
 .about-img img{
-	width: 90%;
+    width: 100%;
+    margin-bottom: 15px;
 }
-.about-txt h2{
-	color: var(--pc)
+.mv{
+    margin-bottom: 20px;
 }
-.about-txt h5{
-	color: var(--pgc);
+.mv-photo img{
+    width: 100%;
+    max-height: 273px;
 }
-.about-txt p{
-	font-size: 20px;
+.mission-vission{
+    background: #f5f5f5;
 }
-.about-txt p span{
-	padding-right: 10px;
-	color: var(--pc);
-}
-.about-profile .profile img{
-	width: 90px;
-	height: 90px;
-	line-height: 90px;
-	text-align: center;
-	border-radius: 50%;
-	background: 1px solid var(--pc);
-}
-.about-profile .sign img{
-	padding-left: 30px;
-}
-/*about section end*/
 
-
+.mv-txt h4{
+    text-align: center;
+    padding-top: 20px;
+    text-transform: capitalize;
+    color: var(--sc);
+}
+.mv-txt p{
+    text-align: justify;
+}
+/*ABOUT SECTION END*/
 
 /*=====================
     USER DASHBOARD

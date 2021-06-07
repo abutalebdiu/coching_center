@@ -1,5 +1,5 @@
 @extends('frontend.layouts.app')
-@section('title','Contact')
+@section('title','Contact Us')
 @section('content')
 
   
@@ -10,7 +10,7 @@
                 <div class="col-12">
                     <div class="section-title py-1">
                         <h2>contect us</h2>
-                        <p>send a message to us</p>
+                        <p>Send a message to us</p>
                     </div>
                 </div>
             </div>
@@ -21,27 +21,32 @@
                             @csrf
                             <div class="form-group wow animate__ animate__fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
                                 <label for="name">Name</label>
-                                <input type="text" name="name" value="{{ old('name') }}" class="form-control" id="name" placeholder="Name">
+                                <input type="text" name="name" value="{{ old('name') }}" class="form-control" id="name" placeholder="Enter Your Name">
+                                <div class="text-danger"> {{ $errors->first('name') }}</div>
                             </div>
 
                             <div class="form-group wow animate__ animate__fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
                                 <label for="email">Email</label>
-                                <input type="email" name="email" value="{{ old('email') }}" class="form-control" id="email" placeholder="yout Email">
+                                <input type="email" name="email" value="{{ old('email') }}" class="form-control" id="email" placeholder="Enter your valid Email">
+                                <div class="text-danger"> {{ $errors->first('email') }}</div>
                             </div>
 
                             <div class="form-group wow animate__ animate__fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
                                 <label for="phone">Mobile Number</label>
-                                <input type="text" name="mobile" class="form-control" value="{{ old('mobile') }}"  id="mobile" placeholder="mobile number">
+                                <input type="text" name="mobile" class="form-control" value="{{ old('mobile') }}"  id="mobile" placeholder="Enter your valid Mobile number">
+                                <div class="text-danger"> {{ $errors->first('mobile') }}</div>
                             </div>
 
                             <div class="form-group wow animate__ animate__fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
                                 <label for="name">Subject</label>
                                 <input type="text" name="subject" value="{{ old('subject') }}" class="form-control" id="name" placeholder="Enter Subject">
+                                <div class="text-danger"> {{ $errors->first('subject') }}</div>
                             </div>
 
                             <div class="form-group wow animate__ animate__fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
                                 <label for="message">Message/Comments</label>
                                 <textarea class="form-control mb-2" name="message" placeholder="Your message" spellcheck="false">{{ old('message') }}</textarea>
+                                <div class="text-danger"> {{ $errors->first('message') }}</div>
                             </div>
 
                             <button type="submit" class="btn btn-custom  my-3"><i class="fa fa-paper-plane-o pr-1 wow animate__ animate__fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;"></i>Submit
@@ -57,7 +62,7 @@
 
                         <p class="wow animate__ animate__fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;"><span><i class="fa fa-envelope-o pr-2"></i>Email - </span> {{ $websetting->email }}</p>
 
-                        <p class="wow animate__ animate__fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;"><span><i class="fa fa-facebook pr-2"></i>facebook group - </span><a href="#">facebook</a></p>
+                        <p class="wow animate__ animate__fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;"><span><i class="fa fa-facebook pr-2"></i>facebook Page - </span><a href="#" target="_blank"> facebook</a></p>
                     </div>
                 </div>
             </div>

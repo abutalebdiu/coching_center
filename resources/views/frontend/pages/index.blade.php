@@ -1,5 +1,5 @@
 @extends('frontend.layouts.app')
-@section('title','detail')
+@section('title',$websetting->homepage_title)
 
 @section('content')
 

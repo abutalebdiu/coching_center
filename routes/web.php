@@ -35,6 +35,11 @@ Route::get('batch/enroll/{id}','FrontendController@batchenroll')->name('batch.en
 
 
 
+Route::get('about','FrontendController@about')->name('about');
+
+
+
+
 
 Route::get('blogs','FrontendController@blogs')->name('blogs');
 Route::get('blog/detail/{id}','FrontendController@blogdetail')->name('blog.detail');
