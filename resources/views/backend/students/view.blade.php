@@ -8,16 +8,16 @@
                     <div class="panel-heading-btn">
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand">
                                 <i class="fa fa-expand"></i>
-                              </a>
-                              <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload">
-                                <i class="fa fa-redo"></i>
-                              </a>
-                              <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse">
-                                <i class="fa fa-minus"></i>
-                              </a>
-                              <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove">
-                                <i class="fa fa-times"></i>
-                              </a>
+                                </a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload">
+                                    <i class="fa fa-redo"></i>
+                                </a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse">
+                                    <i class="fa fa-minus"></i>
+                                </a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove">
+                                    <i class="fa fa-times"></i>
+                                </a>
 
                     </div>
                 </div>
@@ -49,7 +49,6 @@
                                     <td>{{ $student->user?$student->user->name:NULL }}</td>
                                     <td>{{ $student->classes?$student->classes->name:NULL }}</td>
                                     <td>{{ $student->sessiones?$student->sessiones->name:NULL }}</td>
-
                                     <td>
                                         {{ $student->batchsetting?$student->batchsetting->batch_name:NULL }}
                                     </td>
@@ -65,9 +64,10 @@
                                             </button>
                                             <div class="dropdown-menu">
 
-                                                <a href="{{ route('student.edit',$student->user_id) }}" class="dropdown-item"><i class="fa fa-edit"></i> Edit</a>
-                                                <a href="{{ route('student.show',$student->user_id) }}" class="dropdown-item"><i class="fa fa-eye"></i> Show</a>
-                                                <a href="{{ route('student.destroy',$student->id) }}" id="delete" class="dropdown-item"><i class="fa fa-trash"></i> Delete</a>
+                                                <a href="{{ route('student.edit',$student->id) }}" class="dropdown-item"><i class="fa fa-edit"></i> Edit</a>
+                                                <a href="{{ route('student.show',$student->id) }}" class="dropdown-item"><i class="fa fa-eye"></i> Show</a>
+                                                {{-- <a href="{{ route('student.destroy',$student->id) }}" id="delete" class="dropdown-item"><i class="fa fa-trash"></i> Delete</a> --}}
+
                                                 {{--  <a href="{{ route('admin.promotion-class.create','student_id='.$student->user_id) }}" class="dropdown-item">
                                                     <i class="fa fa-check"></i>
                                                     Promotion

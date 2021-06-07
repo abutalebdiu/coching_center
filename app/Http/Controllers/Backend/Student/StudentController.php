@@ -269,7 +269,7 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        $data['student'] = User::FindOrFail($id);
+        $data['student'] = User::FindOrFail($id);//Student::FindOrFail($id);
         return view('backend.students.show',$data);
     }
 
@@ -285,6 +285,7 @@ class StudentController extends Controller
         $data['sessiones']      = Sessiones::all();
         $data['sectiones']      = Section::all();
         $data['months']         = Month::all();
+        $data['batchtypies']    = BatchType::all();
         $data['student_typies'] = StudentType::all();
         $data['student']        = Student::FindOrFail($id);
         return view('backend.students.edit',$data);
@@ -307,11 +308,16 @@ class StudentController extends Controller
             'class_id'    => 'required',
             'session_id'  => 'required',
             'batch_setting_id'=> 'required',
-            'admission_date'=> 'required',
-            'month_id'      => 'required',
-            'student_type_id'=> 'required',
-            'guardianmobile'=> 'required',
-            'status'        => 'required',
+            'batch_type_id'=> 'required',
+           
+            'student_type_id'=> 'nullable',
+            'guardianmobile'=> 'nullable',
+            'status'        => 'nullable',
+
+            'admission_date'    => $request->admission_date != "" ?'required':'nullable',
+            'roll'              => $request->admission_date != "" ?'required':'nullable',
+            'start_month_id'    => $request->admission_date != "" ?'required':'nullable',
+            'activate_status'   => $request->admission_date != "" ?'required':'nullable',
         ]);
 
         if ($validator->fails()){
@@ -319,71 +325,101 @@ class StudentController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-        else{
+        
+        $data = Student::find($id);
+        /*if($data->class_id          == $request->class_id           && 
+            $data->session_id       == $request->session_id         &&
+            $data->batch_setting_id == $request->batch_setting_id   &&
+            $data->batch_type_id    == $request->batch_type_id
+        )
+        {
+            $data->roll              = $request->roll;
+            $data->admission_date    = $request->admission_date;
+            $data->student_type_id   = $request->student_type_id;
+            $data->start_month_id    = $request->start_month_id;
+            $data->activate_status   = $request->activate_status;
+            $data->save();
+        }
+         else if(
+            $data->class_id == $request->class_id && 
+            $data->session_id != $request->session_id
+        )
+        {
+            if($data->batch_setting_id == $request->batch_setting_id && 
+            $data->batch_type_id == $request->batch_type_id 
+            )
+            {
+                $notification = array(
+                    'message' => 'Student already addedd!',
+                    'alert-type' => 'success'
+                );
+                return redirect()->back()->with([$notification,'error','Student already addedd!']);
+            }
+        } */
 
 
-            $findbatchdata = BatchSetting::find($request->batch_setting_id);
-
-
-
-
+        /* if($request->action_type == 2 && $request->previous_student_id)
+        {
+           return $previousStudent = Student::where('user_id',$user_id)
+                ->where('class_id',$request->previous_class_id)
+                ->where('session_id',$request->previous_session_id)
+                ->where('batch_setting_id',$request->previous_batch_setting_id)
+                ->where('batch_type_id',$request->previous_batch_type_id)
+                ->where('activate_status',1)
+                ->orderBy('id','DESC')
+                ->first();
+            //$previousStudent = Student::findOrFail($request->previous_student_id);
+            if($previousStudent)
+            {
+                $previousStudent->activate_status = 2;
+                $previousStudent->save();
+            }
+        } 
+        else{*/
 
             $student = Student::find($id);
-
-            $student->class_id    = $request->class_id;
-            $student->session_id  = $request->session_id;
-            $student->batch_id      = $findbatchdata->batch_id;
-            $student->section_id    = $request->section_id;
-            $student->batch_setting_id= $request->batch_setting_id;
-            $student->roll          = $request->roll;
-            $student->admission_date= $request->admission_date;
-            $student->student_type_id= $request->student_type_id;
-            $student->month_id      = $request->month_id;
-            $student->status        = $request->status;
-
+            $student->class_id          = $request->class_id;
+            $student->session_id        = $request->session_id;
+            //$student->section_id        = $request->section_id;
+            $student->batch_setting_id  = $request->batch_setting_id;
+            $student->batch_type_id     = $request->batch_type_id;
+            $student->roll              = $request->roll;
+            $student->admission_date    = $request->admission_date;
+            $student->student_type_id   = $request->student_type_id;
+            $student->start_month_id    = $request->start_month_id;
+            $student->activate_status   = $request->activate_status;
             $student->save();
+        //}
 
+        $user = User::find($data->user_id);
+        $user->name             = $request->name;
+        $user->mobile           = $request->ownmobile;
+        //$user->email            = $request->email;
+        $user->status           = $request->status;
+        $user->save();
 
-            $user = User::find($student->user_id);
-
-            $user->name         = $request->name;
-            $user->mobile       = $request->guardian_mobile;
-            $user->email        = $request->email;
-            $user->student_type_id= $request->student_type_id;
-            $user->status        = $request->status;
-            $user->save();
-
-
-
-            $studentinfo =  StudentInfo::where('user_id',$student->user_id)->first();
-
-            $studentinfo->school_name   = $request->school_name;
-            $studentinfo->father        = $request->father;
-            $studentinfo->mother        = $request->mother;
-            $studentinfo->guardianmobile= $request->guardianmobile;
-            $studentinfo->ownmobile     = $request->ownmobile;
-            $studentinfo->address       = $request->address;
-            $studentinfo->whatsapp_number= $request->whatsapp_number;
-            $studentinfo->facebook_id   = $request->facebook_id;
-            $studentinfo->bkash_number  = $request->bkash_number;
-            $studentinfo->email         = $request->email;
-            $studentinfo->address       = $request->address;
-            $studentinfo->note          = $request->note;
-            $studentinfo->status        = $request->status;
-
-            $studentinfo->save();
-
-        }
-
-
-
+        $studentinfo =  StudentInfo::where('user_id',$data->user_id)->where('status',1)->first();
+        $studentinfo->father        = $request->father;
+        $studentinfo->mother        = $request->mother;
+        $studentinfo->guardian_mobile= $request->guardianmobile;
+        $studentinfo->own_mobile     = $request->ownmobile;
+        $studentinfo->address       = $request->address;
+        $studentinfo->whatsapp_number= $request->whatsapp_number;
+        $studentinfo->facebook_id   = $request->facebook_id;
+        $studentinfo->bkash_number  = $request->bkash_number;
+        $studentinfo->email         = $request->email;
+        $studentinfo->address       = $request->address;
+        $studentinfo->notes          = $request->note;
+        $studentinfo->status        = $request->status;
+        $studentinfo->save();
+    
         DB::commit();
         $notification = array(
             'message' => 'Student Successfully Update!',
             'alert-type' => 'success'
         );
 
-        return redirect()->route('student.index')->with($notification);
+            return redirect()->route('student.index')->with($notification);
         }
          catch(\Exception $e) {
             dd($e);
@@ -430,7 +466,7 @@ class StudentController extends Controller
             $data->activate_status = 0;
             $data->deleted_at = date('Y-m-d h:i:s');
             $data->save();
-            
+
             $data->user->deleted_at = 0;
             $data->user->status = 0;
             $data->user->save();
