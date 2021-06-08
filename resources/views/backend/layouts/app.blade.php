@@ -33,7 +33,7 @@
     <div id="page-loader" class="fade show"> <span class="spinner"></span> </div>
     <div id="page-container" class="page-container fade page-sidebar-fixed page-header-fixed">
         <div id="header" class="header navbar-default">
-            <div class="navbar-header"> <a href="{{ route('home') }}" class="navbar-brand"><span class="navbar-logo"></span> <b>Color</b> Admin</a>
+            <div class="navbar-header"> <a href="{{ route('home') }}" class="navbar-brand"><span class="navbar-logo"></span> <b> {{ $websetting->site_name }} </b> &nbsp; Admin</a>
                 <button type="button" class="navbar-toggle" data-click="sidebar-toggled"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
             </div>
             <ul class="navbar-nav navbar-right">
@@ -207,12 +207,10 @@
 
                     <li class="nav-header">Exam</li>
                     <li class="has-sub">
-                        <a href="javascript:;"> <b class="caret"></b> <i class="fa fa-clipboard"></i> <span> Questions</span>
+                        <a href="javascript:;"> <b class="caret"></b> <i class="fa fa-clipboard"></i> <span>Old Questions</span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a href="{{ route('written.question.index') }}">Written Exam<i class="fa fa-plus text-theme"></i></a></li>
-                            <li><a href="{{ route('quiz.index') }}">MCQ Questions <i class="fa fa-list text-theme"></i> </a></li>
-                            <li><a href="{{ route('quizquestion.index') }}">MCQ Questions  Add<i class="fa fa-list text-theme"></i> </a></li>
+                           
                             <li><a href="{{ route('boardquestion.index') }}">Board Questions <i class="fa fa-list text-theme"></i> </a></li>
                             <li><a href="{{ route('old_question.index') }}">School Questions <i class="fa fa-list text-theme"></i> </a></li>
                         </ul>
@@ -299,7 +297,8 @@
                             <li><a href="{{ route('social.index') }}">  Social Media <i class="fa fa-share"></i> </a></li>
                             <li><a href="{{ route('website.setting.index') }}">  Web Setting <i class="fa fa-cogs text-theme"></i> </a></li>
                             <li><a href="{{ route('blog.index') }}">  Blogs <i class="fa fa-cogs text-theme"></i> </a></li>
-                            <li><a href="{{ route('user.index') }}">  User Management <i class="fa fa-cogs text-theme"></i> </a></li>
+                            <li><a href="{{ route('user.index') }}">  User Management <i class="fa fa-cogs text-theme"></i> </a></li> 
+                            <li><a href="{{ route('admin.about.index') }}">  About Management <i class="fa fa-cogs text-theme"></i> </a></li>
                         </ul>
                     </li>
 

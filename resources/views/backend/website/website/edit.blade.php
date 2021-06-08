@@ -40,6 +40,12 @@
                                         <div class="text-danger">{{ $errors->first('homepage_title') }}</div>
                                     </div>
 
+                                    <div class="form-group">
+                                        <label for="">About</label>
+                                        <textarea name="about" id="" class="form-control" placeholder="Enter About Short Description">{{ $setting->about }}</textarea>
+                                        <div class="text-danger">{{ $errors->first('about') }}</div>
+                                    </div>
+
 
                                     <div class="form-group">
                                         <label for="">Meta Tags</label>

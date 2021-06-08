@@ -68,9 +68,15 @@
                      <ul>
                         <li><a href="{{ route('frontend') }}">home</a></li>
                         <li><a href="{{ route('about') }}">about us</a></li>
-                        <li><a href="product.html">Downloads</a></li>
+                        <li class="btn-sub"><a href="#">Downloads<i class="fa fa-angle-down"></i></a>
+                            <div class="sub-menu">
+                                <a href="{{ route('board.questiones') }}">Board Question</a>
+                                <a href="{{ route('school.questiones') }}">School Question</a>
+                                <a href="service-details.html">Lecture Sheet</a>
+                            </div>
+                        </li>
                         <li><a href="{{ route('allbatch') }}"> Admissions </a></li>
-                        <li><a href="contect.html">Payments</a></li>
+                       
                         <li><a href="{{ route('blogs') }}">Blogs</a></li>
                         <li><a href="{{ route('notices') }}">Notices</a></li>
                         <li><a href="{{ route('contact') }}">contect us</a></li>
@@ -94,39 +100,41 @@
                             </div>
                         </div>
                         <div class="menu-box">
-                            <div class="menu-link"> <a href="index.html"><i class="fa fa-home logo-left"></i>Home</a> </div>
+                            <div class="menu-link"> <a href="{{ route('frontend') }}"><i class="fa fa-home logo-left"></i>Home</a> </div>
                         </div>
                         <div class="menu-box">
-                            <div class="menu-link"> <a href="about-us.html"><i class="fa fa-users logo-left"></i>about us</a> </div>
+                            <div class="menu-link"> <a href="{{ route('about') }}"><i class="fa fa-info logo-left"></i>About us</a> </div>
                         </div>
+                         
+                       
                         <div class="menu-box">
-                            <div class="menu-link"> <a href="product.html"><i class="fa fa-download logo-left"></i>Downlaods</a> </div>
-                        </div>
-                        <div class="menu-box">
-                            <div class="menu-link" id="headingTwo"> <a class="mmenu-btn" type="button" data-toggle="collapse" data-target="#collapseTwo"><i class="fa fa-cogs logo-left"></i> Admissions<i class="fa fa-plus logo-right"></i></a> </div>
+                            <div class="menu-link" id="headingTwo"> <a class="mmenu-btn" type="button" data-toggle="collapse" data-target="#collapseTwo"><i class="fa fa-download logo-left"></i> Downlaods<i class="fa fa-plus logo-right"></i></a> </div>
                             <div id="collapseTwo" class="collapse menu-body" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                 <div class="card-body">
                                     <ul>
-                                        <li> <a href="service-details.html">Online Admission</a> </li>
-                                        <li> <a href="service-details.html">Offline Admission</a> </li>
+
+                                        <li> <a href="{{ route('board.questiones') }}">Board Question</a>  </li>
+                                        <li> <a href="{{ route('school.questiones') }}">School Question</a>  </li>
+                                        <li> <a href="service-details.html">Lecture Sheet</a> </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="menu-box">
-                            <div class="menu-link"> <a href="portfolio.html"><i class="fa fa-money menuicon logo-left"></i>Payments</a> </div>
+                            <div class="menu-link"> <a href="{{ route('allbatch') }}"><i class="fa fa-wpforms menuicon logo-left"></i>Admissions</a> </div>
+                        </div>
+
+
+                         <div class="menu-box">
+                            <div class="menu-link"> <a href="{{ route('blogs') }}"><i class="fa fa-file-text menuicon logo-left"></i>Blog</a> </div>
+                        </div>
+                        
+                        <div class="menu-box">
+                            <div class="menu-link"> <a href="{{ route('notices') }}"><i class="fa fa-file menuicon logo-left"></i>Notices</a> </div>
                         </div>
                         <div class="menu-box">
-                            <div class="menu-link"> <a href="blog.html"><i class="fa fa-file-text menuicon logo-left"></i>Blog</a> </div>
-                        </div>
-                        <div class="menu-box">
-                            <div class="menu-link"> <a href="blog.html"><i class="fa fa-file-text menuicon logo-left"></i>Videos</a> </div>
-                        </div>
-                        <div class="menu-box">
-                            <div class="menu-link"> <a href="blog.html"><i class="fa fa-file-text menuicon logo-left"></i>Notices</a> </div>
-                        </div>
-                        <div class="menu-box">
-                            <div class="menu-link"> <a href="contect.html"><i class="fa fa-envelope logo-left"></i>Contact us</a> </div>
+                            <div class="menu-link"> <a href="{{ route('contact') }}"><i class="fa fa-envelope logo-left"></i>Contact us</a> </div>
                         </div>
                     </div>
                 </div>
@@ -158,7 +166,8 @@
                         <div class="fa-head after">
                             <h4>about us</h4> </div>
                         <div class="fa-discription py-3">
-                            <p>We are provided all kinds of it supports in hole country.</p>
+                            <img src="{{ $websetting->footer_logo }}" alt="Logo" title="Logo" width="10%">
+                            <p>{{ $websetting->about }}</p>
                         </div>
                     </div>
                 </div>
@@ -166,47 +175,64 @@
                     <div class="footer-link  wow animate__animated animate__fadeInUp">
                         <div class="fa-head after">
                             <h4>important link</h4> </div>
-                        <div class="fl-discription"> <a href="#"><i class="fa fa-long-arrow-right mr-2"></i><span>Eduction Board Result</span>
-                            </a> <a href="#"><i class="fa fa-long-arrow-right mr-2"></i><span>Dhaka Board</span>
-                            </a> <a href="#"><i class="fa fa-long-arrow-right mr-2"></i><span>Bangladesh</span>
-                            </a> <a href="#"><i class="fa fa-long-arrow-right mr-2"></i><span>Newspaper</span>
-                            </a> <a href="#"><i class="fa fa-long-arrow-right mr-2"></i><span>Youtubes</span>
-                            </a> </div>
+                        <div class="fl-discription"> 
+
+                            <a href="http://www.educationboardresults.gov.bd/" target="_blank">
+                                <i class="fa fa-long-arrow-right mr-2"></i>
+                                <span>Eduction Board Result</span>
+                            </a> 
+                            <a href="https://dhakaeducationboard.gov.bd/" target="_blank">
+                                <i class="fa fa-long-arrow-right mr-2"></i>
+                                <span>Dhaka Board</span>
+                            </a> 
+                            <a href="https://www.youtube.com" target="_blank">
+                                <i class="fa fa-long-arrow-right mr-2"></i>
+                                <span>Youtubes</span>
+                            </a> 
+
+                        </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-3">
                     <div class="footer-link  wow animate__animated animate__fadeInUp">
                         <div class="fa-head after">
                             <h4>Menubar</h4> </div>
-                        <div class="fl-discription"> <a href="#"><i class="fa fa-long-arrow-right mr-2"></i><span>Home</span>
-                            </a> <a href="#"><i class="fa fa-long-arrow-right mr-2"></i><span>About</span>
-                            </a> <a href="#"><i class="fa fa-long-arrow-right mr-2"></i><span>Contect</span>
-                            </a> <a href="#"><i class="fa fa-long-arrow-right mr-2"></i><span>Login</span>
-                            </a> <a href="#"><i class="fa fa-long-arrow-right mr-2"></i><span>Registation</span>
-                            </a> </div>
+                        <div class="fl-discription">
+                            <a href="{{ route('frontend') }}"><i class="fa fa-long-arrow-right mr-2"></i><span>Home</span></a> 
+                            <a href="{{ route('about') }}"><i class="fa fa-long-arrow-right mr-2"></i><span>About</span></a> 
+                            <a href="{{ route('contact') }}"><i class="fa fa-long-arrow-right mr-2"></i><span>Contect</span></a>
+                            <a href="{{ route('student.login') }}"><i class="fa fa-long-arrow-right mr-2"></i><span>Login</span></a>
+                            <a href="{{ route('student.register') }}"><i class="fa fa-long-arrow-right mr-2"></i><span>Registation</span></a>
+                        </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-3">
                     <div class="fc-head  wow animate__animated animate__fadeInUp">
                         <div class="fa-head after">
-                            <h4>contect us</h4> </div>
+                            <h4>Contact Us</h4> </div>
                         <div class="fc-discription">
-                            <div class="fc-social-media"> <a href="#" target="_blank"><i class="fa fa-facebook"></i></a> <a href="#" target="-blank"><i class="fa fa-twitter"></i></a> <a href="#" target="-blank"><i class="fa fa-linkedin"></i></a> <a href="#" target="-blank"><i class="fa fa-instagram"></i></a> </div>
+                            <div class="fc-social-media"> 
+                                @foreach($socialmedia as $media)
+                                <a href="{{ $media->link }}" target="_blank" title="{{ $media->name }}"><i class="{{ $media->icon }}"></i>  </a>
+                                @endforeach
+                              
+
+                            </div>
                             <div class="media pt-3">
                                 <div class="media-left"> <i class="fa fa-phone"></i> </div>
                                 <div class="media-body">
-                                    <p> <span>Phone :</span> +8801990-575888 </p>
+                                    <p> <span>Phone :</span> {{ $websetting->phone }} </p>
                                 </div>
                             </div>
                             <div class="media">
                                 <div class="media-left"> <i class="fa fa-envelope-o"></i> </div>
                                 <div class="media-body">
-                                    <p> <span>Email :</span> <a href="#">info@gmail.com</a> </p>
+                                    <p> <span>Email :</span> <a href="#">{{ $websetting->email }}</a> </p>
                                 </div>
                             </div>
                             <form action="">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="mobile no">
+                                    <input type="text" class="form-control" placeholder="Enter Mobile no">
                                     <div class="input-group-append"> <a href="#" type="submit" class="btn btn-custom">Subscribe</a> </div>
                                 </div>
                             </form>
@@ -222,7 +248,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 wow animate__animated animate__fadeInUp">
-                    <p>2021 © All Rights Reserved. Powered by <a href="#">{{ $websetting->site_name }}</a></p>
+                    <p>2021 © All Rights Reserved. Powered by <a href="#">{{ $websetting->site_name }}</a>. Developed By <a href="https://www.softech.com.bd" title="SOFTTECH BD LTD" target="_blank">SOFTTECH BD LTD.</a> </p>
                 </div>
             </div>
         </div>

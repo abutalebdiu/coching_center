@@ -12,6 +12,12 @@ use App\Models\Contact;
 use App\Models\BlogCategory;
 use App\Models\Sessiones;
 use App\Models\Classes;
+use App\About;
+use App\Models\OldQuestion;
+use App\Models\Subject;
+use App\Models\Year;
+use App\Models\ExamType;
+use App\Models\BoardQuestionType;
 
 class FrontendController extends Controller
 {
@@ -32,8 +38,90 @@ class FrontendController extends Controller
 
 	public function about()
 	{
-		return view('frontend.pages.about');
+		$data['about'] = About::find(2);
+		return view('frontend.pages.about',$data);
 	}
+
+
+	public function boardquestiones(Request $request)
+	{
+
+        $data['years'] = Year::all();
+        $data['exams'] = ExamType::all();
+        $data['board_questions'] = BoardQuestionType::all();
+        $data['classs'] = Classes::all();
+        $data['subjects'] = Subject::all();
+
+		$query = OldQuestion::query();
+
+
+		if($request->type_id)
+		{
+			$data['type_id']  = $request->type_id;
+			$query = $query->where('board_question_type_id',$request->type_id);
+		}
+
+		if($request->year_id)
+		{
+			$data['year_id'] = $request->year_id;
+			$query = $query->where('year_id',$request->year_id);
+ 		}
+
+ 		if($request->subject_id)
+ 		{
+ 			$data['subject_id'] = $request->subject_id;
+ 			$query = $query->where('subject_id',$request->subject_id);
+ 		}
+
+
+		$data['boardquestiones'] =  $query->where('question_type_id',2)->latest()->paginate(2);
+
+		return view('frontend.pages.boardquestiones',$data);
+	}
+
+
+
+
+
+	public function schoolquestiones(Request $request)
+	{
+		
+        $data['years'] = Year::all();
+        $data['exams'] = ExamType::all();
+        $data['board_questions'] = BoardQuestionType::all();
+        $data['classs'] = Classes::all();
+        $data['subjects'] = Subject::all();
+
+		$query = OldQuestion::query();
+
+
+		if($request->type)
+		{
+			$data['type']  = $request->type;
+			$query = $query->where('board_question_type_id',$request->type);
+		}
+
+		if($request->year)
+		{
+			$data['year'] = $request->year;
+			$query = $query->where('year_id',$request->year);
+ 		}
+
+ 		if($request->subject)
+ 		{
+ 			$data['subject_id'] = $request->subject_id;
+ 			$query = $query->where('subject_id',$request->subject_id);
+ 		}
+
+
+		$data['schoolquestiones'] =  $query->where('question_type_id',1)->latest()->paginate(2);
+
+		return view('frontend.pages.schoolquestiones',$data);
+
+
+	}
+
+
 
 
 

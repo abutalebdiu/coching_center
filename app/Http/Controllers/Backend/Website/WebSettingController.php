@@ -89,6 +89,7 @@ class WebSettingController extends Controller
 
             $setting                    = WebSetting::find(1);
             $setting->site_name         = $request->site_name;
+            $setting->about             = $request->about;
             $setting->homepage_title    = $request->homepage_title;
             $setting->meta_tags         = $request->meta_tags;
             $setting->meta_description  = $request->meta_description;

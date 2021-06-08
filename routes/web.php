@@ -30,12 +30,26 @@ Route::get('clear', function() {
 
 
 Route::get('/','FrontendController@index')->name('frontend');
+Route::get('about','FrontendController@about')->name('about');
+
+
+Route::get('board/questiones','FrontendController@boardquestiones')->name('board.questiones');
+Route::get('school/questiones','FrontendController@schoolquestiones')->name('school.questiones');
+
+
+
+
+
+
+
+
 Route::get('allbatch','FrontendController@allbatch')->name('allbatch');
 Route::get('batch/enroll/{id}','FrontendController@batchenroll')->name('batch.enroll');
 
 
 
-Route::get('about','FrontendController@about')->name('about');
+
+
 
 
 
@@ -294,6 +308,17 @@ Route::group(['prefix'=>'admin/user','namespace'=>'Backend\Student','middleware'
 
 
 
+//about page
+Route::group(['prefix'=>'admin/about','namespace'=>'Backend\about','middleware'=>['auth','admin']],function (){
+    Route::get("/index", "AboutController@index")->name("admin.about.index");
+    Route::get("/show/{id}", "AboutController@show")->name("admin.about.show");
+    Route::get("/create", "AboutController@create")->name("admin.about.create");
+    Route::get("/edit/{id}", "AboutController@edit")->name("admin.about.edit");
+    Route::post("/update/{id}", "AboutController@update")->name("admin.about.update");
+    Route::post("/create/post", "AboutController@store")->name("admin.about.store");
+    Route::get("/destroy/{id}", "AboutController@destroy")->name("admin.about.destroy");
+});
+
 
 
 
@@ -492,9 +517,14 @@ Route::group(['namespace' => 'Backend\Question' ,'middleware' => ['auth', 'admin
         Route::get('destroy/{id}','OldQuestionController@destroy')->name('old_question.destroy');
 
 
-
-
         Route::get('boardquestion/index','OldQuestionController@boardquestionindex')->name('boardquestion.index');
+        Route::get('boardquestion/create','OldQuestionController@boardquestioncreate')->name('boardquestion.create');
+        Route::post('boardquestion/store','OldQuestionController@boardquestionstore')->name('boardquestion.store');
+        Route::get('boardquestion/edit/{id}','OldQuestionController@boardquestionedit')->name('boardquestion.edit');
+        Route::post('boardquestion/update/{id}','OldQuestionController@boardquestionupdate')->name('boardquestion.update');
+        Route::get('boardquestion/destroy/{id}','OldQuestionController@boardquestiondestroy')->name('boardquestion.destroy');
+
+        
 
     });
 

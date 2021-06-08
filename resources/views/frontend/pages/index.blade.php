@@ -60,11 +60,12 @@
     <section class="notic-section py-5 bgg">
         <div class="container">
             <div class="row">
-                <div class="col-8 bg-white">
+                <div class="col-12 col-md-8 col-sm-8 col-lg-8 bg-white">
                     <div class="batch-list">
                         <div class="batch-heading">
                             <h3>Current Batch</h3> </div>
                         <div class="batch-body">
+                            <div class="table-responsive">
                             <table class="table table-bordered table-hovered">
                                 <thead>
                                     <tr>
@@ -96,17 +97,18 @@
                                     
                                 </tbody>
                             </table>
-                            <a href="" class="btn btn-primary btn-sm float-right">See More</a>
+                            </div>
+                            <a href="{{ route('allbatch') }}" class="btn btn-primary btn-sm float-right">See More</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-md-4 col-ms-4 col-lg-4">
                     <div class="notic-area ">
                         <ul>
                             <li class="notic-head wow animate__animated animate__fadeInUp">
                                 <h4>NoticeBoard</h4>
                             </li>
-
+                            
                             @foreach($notices as $notice)
                             <li class="wow animate__animated animate__fadeInUp"> <span><i class="fa fa-calendar" aria-hidden="true"></i>{{ Date('d-M-Y',strtotime($notice->publish_date)) }}</span>
                                 <a href="#">
@@ -114,7 +116,7 @@
                             </li>
                             @endforeach
                              
-                            <li class="wow animate__animated animate__fadeInUp"> <a href="notic.html" class="btn btn-custom btn-sm">See More</a> </li>
+                            <li class="wow animate__animated animate__fadeInUp"> <a href="{{ route('notices') }}" class="btn btn-custom btn-sm">See More</a> </li>
                         </ul>
                     </div>
                 </div>
@@ -182,35 +184,35 @@
                                 <div class="col-12 col-sm-6 col-md-4">
                                     <div class="form-group wow animate__animated animate__fadeInUp">
                                         <label for="name">Name :</label>
-                                        <input type="text" name="name" value="{{ old('name') }}" class="form-control" id="name" placeholder="Name"> 
+                                        <input type="text" name="name" value="{{ old('name') }}" class="form-control" id="name" placeholder="Enter your name"> 
                                         <div class="text-danger">{{ $errors->first('name') }}</div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6 col-md-4">
                                     <div class="form-group wow animate__animated animate__fadeInUp">
                                         <label for="phone">Mobile Number :</label>
-                                        <input type="text" name="mobile" class="form-control" id="mobile" placeholder="mobile number">
+                                        <input type="text" name="mobile" class="form-control" id="mobile" placeholder="Enter your valid mobile number">
                                         <div class="text-danger">{{ $errors->first('mobile') }}</div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group wow animate__animated animate__fadeInUp">
                                         <label for="subject">Email :</label>
-                                        <input type="text" name="email" value="{{ old('email') }}" class="form-control" id="email" placeholder="Email">
+                                        <input type="text" name="email" value="{{ old('email') }}" class="form-control" id="email" placeholder="Enter your valid email address">
                                         <div class="text-danger">{{ $errors->first('email') }}</div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-12">
                                     <div class="form-group wow animate__animated animate__fadeInUp">
                                         <label for="subject">Subject :</label>
-                                        <input type="text" name="subject" value="{{ old('subject') }}" class="form-control" id="subject" placeholder="Subject">
+                                        <input type="text" name="subject" value="{{ old('subject') }}" class="form-control" id="subject" placeholder="Enter your message Subject">
                                         <div class="text-danger">{{ $errors->first('subject') }}</div>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group wow animate__animated animate__fadeInUp">
                                         <label for="message">Message/comments :</label>
-                                        <textarea class="form-control mb-2" name="message" placeholder="Your message" spellcheck="false">{{ old('message') }}</textarea>
+                                        <textarea class="form-control mb-2" name="message" placeholder="Enter Your message" spellcheck="false">{{ old('message') }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
