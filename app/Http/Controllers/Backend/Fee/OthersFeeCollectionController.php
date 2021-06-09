@@ -123,7 +123,7 @@ class OthersFeeCollectionController extends Controller
             {
                 $detail = $data->feeCategory($data->fee_cat_id);
                 $id     = $detail['id'];
-                $name   = $detail['name'];;
+                $name   = $detail['name'];
                 $output .='<option value="'.$data->id.'">'.$name.'</option>';
             }
             if($datas)

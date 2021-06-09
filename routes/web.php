@@ -356,15 +356,30 @@ Route::group(['prefix'=>'admin/user','namespace'=>'Backend\Student','middleware'
     {
         Route::resource('mcq-setting','McqQuestionSettingController');
     });
-    /**Student Mcq Question Setting */
+    
+    /**Written Question Setting */
     Route::group(['as'=>'admin.','prefix'=>'exam/question','namespace'=>'Backend\ExamQuestion','middleware'=>['auth','admin']],function()
     {
+        Route::resource('written-setting','WrittenExamSettingController');
+    });
+
+    /**Student Mcq and Written Question Setting */
+    Route::group(['as'=>'admin.','prefix'=>'exam/question','namespace'=>'Backend\ExamQuestion','middleware'=>['auth','admin']],function()
+    {
+        /**MCQ Question student setting */
         Route::get('mcq/student/setting','StudentQuestionSettingController@mcqIndex')->name('mcq.question.student.setting.index');
         Route::get('mcq/student/setting/create','StudentQuestionSettingController@mcqCreate')->name('mcq.question.student.setting.create');
         Route::get('mcq/student/setting/create/student/list','StudentQuestionSettingController@mcqCreateStudentList')->name('mcq.question.student.setting.create.student.list');
         Route::post('mcq/student/setting/store','StudentQuestionSettingController@mcqStoreStudent')->name('mcq.question.student.setting.store');
+        /**MCQ Question student setting */
+
+        /**Written Question student setting */
+        Route::get('written/student/setting','StudentQuestionSettingController@writtenIndex')->name('written.question.student.setting.index');
+        Route::get('written/student/setting/create','StudentQuestionSettingController@writtenCreate')->name('written.question.student.setting.create');
+        Route::get('written/student/setting/create/student/list','StudentQuestionSettingController@writtenCreateStudentList')->name('written.question.student.setting.create.student.list');
+        Route::post('written/student/setting/store','StudentQuestionSettingController@writtenStoreStudent')->name('written.question.student.setting.store');
     });
-    /**Mcq Question  Part End*/
+    /**Student Mcq and Written Question Setting */
 
 
 Route::group(['prefix'=>'quiz','namespace'=>'Backend\Question','middleware'=>['auth','admin']],function()

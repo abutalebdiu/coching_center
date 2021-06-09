@@ -137,7 +137,6 @@ class AbsentController extends Controller
      */
     public function store(Request $request)
     {
-        //return $request;
         DB::beginTransaction();
         try
         {
@@ -145,6 +144,7 @@ class AbsentController extends Controller
                 'class_id'          => 'required',
                 'session_id'        => 'required',
                 'batch_setting_id'  => 'required',
+                'batch_type_id'     => 'required',
                 'month_id.*'        => 'required',
                 'student_id'        => 'required',
                 'status'            => 'required',
@@ -165,6 +165,7 @@ class AbsentController extends Controller
             $data->class_id             = $request->class_id;
             $data->session_id           = $request->session_id;
             $data->batch_setting_id     = $request->batch_setting_id;
+            $data->batch_type_id        = $request->batch_type_id;
             $data->section_id           = $request->section_id;
             $data->reason               = $request->reason;
             $data->notes                = $request->note;
@@ -273,77 +274,74 @@ class AbsentController extends Controller
      */
     public function update(Request $request,$id, AbsentStudent $absentStudent)
     {
+        //return $request;
+        DB::beginTransaction();
+        try
+        {
+            $validator = Validator::make($request->all(), [
+                'class_id'          => 'required',
+                'session_id'        => 'required',
+                'batch_setting_id'  => 'required',
+                'batch_type_id'     => 'required',
+                'month_id.*'        => 'required',
+                'student_id'        => 'required',
+                'status'            => 'required',
+                //'student_type_id'   => $request->previous_admitted == "" ?'required':'nullable',
+                //'activate_status'   => $request->previous_admitted == "" ?'required':'nullable',
+            ]);
+            if ($validator->fails()){
+                return redirect()->back()
+                            ->withErrors($validator)
+                            ->withInput();
+            }
         
-         //return $request;
-         DB::beginTransaction();
-         try
-         {
-             $validator = Validator::make($request->all(), [
-                 'class_id'          => 'required',
-                 'session_id'        => 'required',
-                 'batch_setting_id'  => 'required',
-                 'month_id.*'        => 'required',
-                 'student_id'        => 'required',
-                 'status'            => 'required',
-                 //'student_type_id'   => $request->previous_admitted == "" ?'required':'nullable',
-                 //'activate_status'   => $request->previous_admitted == "" ?'required':'nullable',
-             ]);
-             if ($validator->fails()){
-                 return redirect()->back()
-                             ->withErrors($validator)
-                             ->withInput();
-             }
+            $data   = AbsentStudent::findOrfail($id);
+            $data->student_id           = $request->student_id;
+            $data->user_id              = $request->user_id;
+            $data->class_id             = $request->class_id;
+            $data->session_id           = $request->session_id;
+            $data->batch_setting_id     = $request->batch_setting_id;
+            $data->batch_type_id        = $request->batch_type_id;
+            $data->section_id           = $request->section_id;
+            $data->reason               = $request->reason;
+            $data->notes                = $request->note;
+            $data->status               = $request->status;
+            //$data->created_by           = auth()->user()->id;
+            $data->save();
             
-         
- 
-             $data   = AbsentStudent::findOrfail($id);
-             $data->student_id           = $request->student_id;
-             $data->user_id              = $request->user_id;
-             $data->class_id             = $request->class_id;
-             $data->session_id           = $request->session_id;
-             $data->batch_setting_id     = $request->batch_setting_id;
-             $data->section_id           = $request->section_id;
-             $data->reason               = $request->reason;
-             $data->notes                = $request->note;
-             $data->status               = $request->status;
-             //$data->created_by           = auth()->user()->id;
-             $data->save();
-             
-             foreach ($data->absentMonths as $key => $value)
-             {
+            foreach ($data->absentMonths as $key => $value)
+            {
                 $value->delete();
-             }
+            }
 
-             foreach ($request->month_id as $key => $value) 
-             {
+            foreach ($request->month_id as $key => $value) 
+            {
                 $absentMonths = new AbsentMonth();
                 $absentMonths->absent_id    = $data->id;     
                 $absentMonths->month_id     = $value;     
                 $absentMonths->year         = date('Y');     
                 $absentMonths->save();
-             }
-            
-            
-             DB::commit();
-             $notification = array(
-                 'message' => 'Student Absent Added Successfully!',
-                 'alert-type' => 'success'
-             );
-             return redirect()->route('admin.absent.index')->with($notification);
-         } 
-         catch(\Exception $e) {
-             DB::rollback();
-             if($e->getMessage())
-             {
-                 // $message = "Something went wrong! Please Try again";
-                 $message = $e->getMessage();
-             }
-             $notification = array(
-                 'message' => 'Failed to Submit Student Info!',
-                 'alert-type' => 'error'
-             );
-             return redirect()->back()->with($message);
-         }
+            }
+            DB::commit();
+            $notification = array(
+                'message' => 'Student Absent Added Successfully!',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('admin.absent.index')->with($notification);
+        } 
+        catch(\Exception $e) {
+            DB::rollback();
+            if($e->getMessage())
+            {
+                // $message = "Something went wrong! Please Try again";
+                $message = $e->getMessage();
+            }
+            $notification = array(
+                'message' => 'Failed to Submit Student Info!',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($message);
+        }
     }
 
     /**

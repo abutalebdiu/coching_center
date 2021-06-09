@@ -51,6 +51,7 @@ class StudentQuestionSettingController extends Controller
                             ->groupBy(['batch_setting_id','batch_type_id','fee_cat_id','exam_setting_id',
                                 'class_id' , 'session_id'
                             ])
+                            ->where('fee_cat_id',4)
                             ->paginate(100);
         return view('backend.questions.question_studen_setting.mcq.index',$data);
     }
@@ -214,6 +215,183 @@ class StudentQuestionSettingController extends Controller
             'capability' => $capability
         ]);
     }
+
+
+
+
+    /** Written  */
+    public function writtenIndex()
+    {
+        $data['questions'] = StudentQuestionSetting::whereNull('deleted_at')
+                            ->where('exam_capability',1)
+                            ->select('*',DB::raw('COUNT(id) as totalApprovedStudenForExam'))
+                            ->latest()
+                            ->groupBy(['batch_setting_id','batch_type_id','fee_cat_id','exam_setting_id',
+                                'class_id' , 'session_id'
+                            ])
+                            ->where('fee_cat_id',5)
+                            ->paginate(100);
+        return view('backend.questions.question_studen_setting.written.index',$data);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function writtenCreate(Request $request)
+    {
+        /*though it is not using, but maybe will be uses */
+        $data['classes']            = Classes::where('status',1)->get();
+        $data['sessiones']          = Sessiones::where('status',1)->get();
+        /*though it is not using, but maybe will be uses */
+
+        $data['batchTypies']        = BatchType::where('status',1)->get();
+        $data['payTimes']           = PayTime::where('status',1)->get();
+
+        $examSet                            = ExamSetting::find($request->qid);
+
+        $writtenSubjectQes                      = McqQuestionSubject::find($examSet?$examSet->question_subject_id:NULL);
+        $data['writtenSubjectName']             = $writtenSubjectQes?$writtenSubjectQes->subjects?$writtenSubjectQes->subjects->name:NULL:NULL;
+        $data['writtenSubjectQuestionName']     = $writtenSubjectQes?$writtenSubjectQes->question_no:NULL;
+
+        $data['written_question_subject_id']    = $request->qid;
+        $data['written_subject_id']             = $writtenSubjectQes?$writtenSubjectQes->subject_id:NULL;
+        $data['class_id']                   = $writtenSubjectQes?$writtenSubjectQes->class_id:NULL;
+        $data['className']                  = $writtenSubjectQes?$writtenSubjectQes->classes?$writtenSubjectQes->classes->name:NULL:NULL;
+        $data['session_id']                 = $writtenSubjectQes?$writtenSubjectQes->session_id:NULL;
+        $data['sessionName']                = $writtenSubjectQes?$writtenSubjectQes->sessiones?$writtenSubjectQes->sessiones->name:NULL:NULL;
+        $data['examination_type_id']        = $writtenSubjectQes?$writtenSubjectQes->examination_type_id:NULL;
+        $data['ExamTypeName']               = $writtenSubjectQes?$writtenSubjectQes->examtypies?$writtenSubjectQes->examtypies->name:NULL:NULL;
+
+        $data['batchSettingName']           = $examSet?$examSet->batchsetting?$examSet->batchsetting->batch_name:NULL:NULL;
+        $data['batchSettingId']             = $examSet?$examSet->batch_setting_id:NULL;
+
+        $data['batchTypeName']              = $examSet?$examSet->batchTypies?$examSet->batchTypies->name:NULL:NULL;
+        $data['batchTypeId']                = $examSet?$examSet->batch_type_id:NULL;
+
+        $data['question']                  = $examSet ;
+
+
+        /**Batch Setting by class and session id */
+        $data['batches'] = BatchSetting::where('status',1)
+                ->where('sessiones_id',$data['session_id'])
+                ->where('classes_id',$data['class_id'])
+                ->latest()
+                ->get();
+        /**Batch Setting by class and session id */
+        $data['fee_categories'] = FeeCategory::whereNull('deleted_at')
+                                ->where('fee_category_type_id',2)
+                                ->where('status',1)
+                                //->latest()
+                                ->get();
+
+        $data['examination_type_id']        = $writtenSubjectQes?$writtenSubjectQes->examination_type_id:NULL;
+        if($request->qtype == 'wrq')
+        {
+            return view('backend.questions.question_studen_setting.written.create',$data);
+        }else{
+            return redirect()->back();
+        }
+    }
+
+
+    public function writtenCreateStudentList(Request $request)
+    {
+        $request->class_id;
+        $request->session_id;
+        $request->batch_setting_id;
+        $request->batch_type_id;
+        $data['students'] = Student::where('activate_status',1)
+                ->where('batch_setting_id',$request->batch_setting_id)//
+                ->where('class_id',$request->class_id)
+                ->where('session_id',$request->session_id)
+                ->where('batch_type_id',$request->batch_type_id)
+                ->get();
+        $html = view('backend.questions.question_studen_setting.written.ajax_student_list',$data)->render();
+        if($data['students'])
+        {
+            return response()->json([
+                'status'    => true,
+                'html'      => $html
+            ]);
+        }
+    }
+
+
+
+    public function writtenStoreStudent(Request $request)
+    {
+        $existdata = StudentQuestionSetting::whereNull('deleted_at')
+            ->where('class_id',$request->class_id)
+            ->where('session_id',$request->session_id)
+            ->where('batch_setting_id',$request->batch_setting_id)
+            ->where('batch_type_id',$request->batch_type_id)
+            ->where('origin_id',$request->question_subject_id)
+            ->where('fee_cat_id',$request->fee_cat_id)
+            ->where('fee_amount_setting_id',$request->fee_amount_setting_id)
+
+            //->where('examination_type_id',$request->examination_type_id)
+            ->where('exam_setting_id',$request->exam_setting_id)
+            ->where('student_id',$request->student_id)
+            //->where('exam_capability',1)
+            ->first();
+
+        if($existdata)
+        {
+            if($request->action_type == 'in_active' && $existdata->exam_capability == 1)
+            {
+                $existdata->exam_capability = NULL;
+                $capability = "Inactive";
+            }else{
+                $existdata->exam_capability = 1;
+                $capability = "active";
+            }
+            $existdata->save();
+        }
+        else{
+            $studentQSet = new StudentQuestionSetting();
+            $studentQSet->class_id              =   $request->class_id;
+            $studentQSet->session_id            =   $request->session_id;
+            $studentQSet->batch_setting_id      =   $request->batch_setting_id;
+            $studentQSet->batch_type_id         =   $request->batch_type_id;
+
+            $studentQSet->fee_cat_id            =   $request->fee_cat_id;
+            $studentQSet->fee_amount_setting_id =   $request->fee_amount_setting_id;
+            $studentQSet->origin_id             =   $request->question_subject_id;
+
+            //$studentQSet->question_subject_id   =   $request->question_subject_id;
+            //$studentQSet->subject_id            =   $request->subject_id;
+
+            //$studentQSet->examination_type_id   =   $request->examination_type_id;
+            $studentQSet->exam_setting_id       =   $request->exam_setting_id;
+            $studentQSet->student_id            =   $request->student_id;
+            $studentQSet->exam_capability       =   1;
+            $studentQSet->created_by            =   Auth::user()->id;
+            $studentQSet->save();
+
+            $capability  = "active";
+
+        }
+
+        $this->class_id             = $request->class_id;
+        $this->session_id           = $request->session_id;
+        $this->student_id           = $request->student_id;
+        $this->batch_setting_id     = $request->batch_setting_id;
+        $this->batch_type_id        = $request->batch_type_id;
+        $this->question_subject_id  = $request->question_subject_id;
+        $this->examination_type_id  = $request->examination_type_id;
+        $this->exam_setting_id      = $request->exam_setting_id;
+        $this->subject_id           = $request->subject_id;
+        $this->status               = $capability == "active" ? 1 : NULL;
+        $this->insertStudentInTblMacExamStudentAnsSurrary();
+        return response()->json([
+            'status'    => true,
+            'capability' => $capability
+        ]);
+    }
+
+
 
     /**
      * Store a newly created resource in storage.

@@ -6,7 +6,7 @@
     <div id="content" class="content">
         <div class="panel panel-inverse">
             <div class="panel-heading">
-                <h4 class="panel-title">Add New Written Questions  </h4>
+                <h4 class="panel-title">Edit Written Questions  </h4>
                 <div class="panel-heading-btn">
                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand">
                         <i class="fa fa-expand"></i>
@@ -44,10 +44,26 @@
                 <form action="{{ route('written.question.update',$question->id) }}" method="post" enctype="multipart/form-data">
                     @CSRF
 
-                    
-                  
-
-                    <div class="row">
+                     <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label for="class">Question No/Name :</label>
+                                <input type="text" value="{{$question->question_no}}" name="question_no" placeholder="Question no/name" class="form-control" >
+                                <div class="text-danger">{{ $errors->first('question_no') }}</div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label for="Subject">Subject :</label>
+                                <select name="subject_id" id="subject_id" class="form-control" >
+                                    <option value="">Select Subject</option>
+                                    @foreach($subjectes as $subject)
+                                        <option {{ $question->subject_id == $subject->id ? 'selected' :'' }} value="{{ $subject->id }}"> {{ $subject->name }}</option>
+                                    @endforeach
+                                </select>
+                                 <div class="text-danger">{{ $errors->first('session_id') }}</div>
+                            </div>
+                        </div>
                         <div class="col-xs-12 col-sm-4 col-md-4">
                             <div class="form-group">
                                 <label for="class">Class :</label>
@@ -69,102 +85,45 @@
                                         <option {{ $question->session_id == $session->id ? 'selected' :'' }} value="{{ $session->id }}"> {{ $session->name }}</option>
                                     @endforeach
                                 </select>
-                                 <div class="text-danger">{{ $errors->first('session_id') }}</div>
+                                <div class="text-danger">{{ $errors->first('session_id') }}</div>
                             </div>
                         </div>
-
-                        
-
                         <div class="col-xs-12 col-sm-4 col-md-4">
                             <div class="form-group">
-                                <label for="Batch Setting">Batch  :</label>
-                                <select name="batch_setting_id" id="batch_setting_id" class="batch_setting_id form-control" >
-
-                                     <option  value="">Select Batch</option>
-                                </select>
-                                <div class="text-danger">{{ $errors->first('batch_setting_id') }}</div>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-4 col-md-4">
-                            <div class="form-group">
-
-                                Old File <a href="{{ asset($question->attachment) }}" download=""  >Download</a>
-                                <br>
-                                <br>
-
-                                <label for="Batch Setting">Attachment  :</label>
-                                 <input type="file" class="form-control" name="attachment" id="attachment">
-                                <div class="text-danger">{{ $errors->first('attachment') }}</div>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-4 col-md-4">
-                            <div class="form-group">
-                                <label for="Subject">Subject :</label>
-                                <select name="subject_id" id="subject_id" class="form-control" >
-                                    <option value="">Select Subject</option>
-                                    @foreach($subjectes as $subject)
-                                        <option {{ $question->subject_id == $subject->id ? 'selected' :'' }} value="{{ $subject->id }}"> {{ $subject->name }}</option>
+                                <label for="Session">Examination Type :</label>
+                                <select name="examination_type_id" id="" class="examination_type_id form-control" >
+                                    <option value="">Select Session</option>
+                                    @foreach($examTypies as $examType)
+                                        <option {{ $question->examination_type_id == $examType->id ? 'selected' :'' }} value="{{ $examType->id }}"> {{ $examType->name }}</option>
                                     @endforeach
                                 </select>
-                                 <div class="text-danger">{{ $errors->first('session_id') }}</div>
+                                <div class="text-danger">{{ $errors->first('examination_type_id') }}</div>
                             </div>
                         </div>
-
-                        <div class="col-xs-12 col-sm-4 col-md-4">
+                        <div class="col-xs-12 col-sm-3 col-md-3">
                             <div class="form-group">
-                                <label for="Subject">Question Type :</label>
-                                <select name="question_type" id="question_type" class="form-control" >
-                                    <option value="">Select Type</option>
-                                     <option {{ $question->question_type == "Free" ? 'selected' : '' }} value="Free">Free</option>
-                                     <option {{ $question->question_type == "Paid" ? 'selected' : '' }} value="Paid">Paid</option>
-                                </select>
-                                 <div class="text-danger">{{ $errors->first('question_type') }}</div>
-                            </div>
-                        </div>
-
-
-
-
-                        <div class="col-xs-12 col-sm-4 col-md-4">
-                            <div class="form-group">
-                                <label for="Subject">Amount :</label>
-                                 <input type="text" name="amount" id="amount" value="{{ $question->amount }}" class="form-control" placeholder="Enter Amount">
-                                 <div class="text-danger">{{ $errors->first('question_type') }}</div>
-                            </div>
-                        </div>
-
-
-					 
-
-                        <div class="col-xs-12 col-sm-4 col-md-4">
-                            <div class="form-group">
-                                <label for="Subject">Status :</label>
-                                <select name="status" id="status" class="form-control" >
-                                    <option value="">Select Type</option>
-                                     <option {{ $question->status == 1 ? 'selected' : '' }} value="1">Active</option>
-                                     <option {{ $question->status == 2 ? 'selected' : '' }} value="2">Inactive</option>
-                                </select>
-                                 <div class="text-danger">{{ $errors->first('status') }}</div>
-                            </div>
-                        </div>
-
-
-
-						<div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <label for="Batch Setting">Description  :</label>
-                                <textarea name="description" class="form-control" placeholder="Question Description">{{  $question->description  }}</textarea>
+                                <label for="Batch Setting">Attachment  :</label>
+                                <input type="file" class="form-control" name="attachment" id="attachment">
                                 <div class="text-danger">{{ $errors->first('attachment') }}</div>
                             </div>
                         </div>
+                        <div class="col-xs-12 col-sm-2 col-md-2">
+                            <div class="form-group">
+                                <label for="Batch Setting">Old File</label> <br/>
+                                <a href="{{ asset($question->attachment) }}" download=""  >Download</a>
+                            </div>
+                        </div>
 
- 
-                        
-                        
+                        <div class="col-xs-12 col-sm-7 col-md-7">
+                            <div class="form-group">
+                                <label for="Batch Setting">Description  :</label>
+                                <textarea name="description" class="form-control" placeholder="Question Description">{{$question->description}}</textarea>
+                                <div class="text-danger">{{ $errors->first('description') }}</div>
+                            </div>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                  
+                    <button type="submit" class="btn btn-primary mt-3">Update</button>
                 </form>
             </div>
 

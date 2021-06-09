@@ -36,7 +36,7 @@ class McqQuestionSettingController extends Controller
      */
     public function index()
     {
-        $data['questions'] = ExamSetting::whereNull('deleted_at')->latest()->paginate(100);
+        $data['questions'] = ExamSetting::whereNull('deleted_at')->where('fee_cat_id',4)->latest()->paginate(100);
         return view('backend.questions.mcq_question_setting.index',$data);
     }
 
@@ -78,6 +78,7 @@ class McqQuestionSettingController extends Controller
         /**Batch Setting by class and session id */
         $data['fee_categories'] = FeeCategory::whereNull('deleted_at')
                                 ->where('fee_category_type_id',2)
+                                ->whereIn('id',[4])
                                 ->where('status',1)
                                 //->latest()
                                 ->get();

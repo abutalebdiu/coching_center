@@ -186,6 +186,9 @@
                         <ul class="sub-menu">
                             <li><a href="{{ route('admin.mcq.index') }}">MCQ Question List<i class="fa fa-list text-theme"></i></a></li>
                             <li><a href="{{ route('admin.mcq.create') }}">Create MCQ Question<i class="fa fa-plus text-theme"></i></a></li>
+                            
+                            <li><a href="{{ route('written.question.index') }}">Written Question List<i class="fa fa-list text-theme"></i></a></li>
+                            <li><a href="{{ route('written.question.create') }}">Create Written Question<i class="fa fa-plus text-theme"></i></a></li>
                         </ul>
                     </li>
                     <li class="has-sub">
@@ -193,7 +196,7 @@
                         </a>
                         <ul class="sub-menu">
                             <li><a href="{{ route('admin.mcq-setting.index') }}">MCQ Q Setting List<i class="fa fa-list text-theme"></i></a></li>
-                            <li><a href="#">Written Q Setting List<i class="fa fa-list text-theme"></i></a></li>
+                            <li><a href="{{route('admin.written-setting.index')}}">Written Q Setting List<i class="fa fa-list text-theme"></i></a></li>
                         </ul>
                     </li>
                     <li class="has-sub">
@@ -201,7 +204,7 @@
                         </a>
                         <ul class="sub-menu">
                             <li><a href="{{ route('admin.mcq.question.student.setting.index') }}">MCQ Q Setting List<i class="fa fa-list text-theme"></i></a></li>
-                            <li><a href="#">Written Q Setting List<i class="fa fa-list text-theme"></i></a></li>
+                            <li><a href="{{route('admin.written.question.student.setting.index')}}">Written Q Setting List<i class="fa fa-list text-theme"></i></a></li>
                         </ul>
                     </li>
 

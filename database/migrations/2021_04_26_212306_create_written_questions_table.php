@@ -15,15 +15,15 @@ class CreateWrittenQuestionsTable extends Migration
     {
         Schema::create('written_questions', function (Blueprint $table) {
             $table->id();
+            $table->string('question_no',255)->nullable();
+            $table->integer('subject_id')->nullable();
+            $table->integer('examination_type_id')->nullable();
             $table->integer('class_id')->nullable();
             $table->integer('session_id')->nullable();
-            $table->integer('batch_setting_id')->nullable();
-            $table->string('attachment');
+            $table->string('attachment')->nullable();
             $table->text('description')->nullable();
-            $table->integer('subject_id');
-            $table->string('question_type');   /*1 free 2 paid*/
-            $table->string('amount')->nullable();
-            $table->integer('status');
+            $table->tinyInteger('status')->nullable();  
+            $table->softDeletes();
             $table->timestamps();
         });
     }

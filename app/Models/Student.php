@@ -76,6 +76,19 @@ class Student extends Model
         ->where('batch_type_id',$this->batch_type_id)
         ->where('class_id',$this->class_id)
         ->where('session_id',$this->session_id)
+        ->where('fee_cat_id',4)
+        ->where('exam_capability',1)
+        ->first();
+    }
+
+	public function checkExistingForWrittenStudent()
+    {
+        return StudentQuestionSetting::where('student_id',$this->id)
+        ->where('batch_setting_id',$this->batch_setting_id)
+        ->where('batch_type_id',$this->batch_type_id)
+        ->where('class_id',$this->class_id)
+        ->where('session_id',$this->session_id)
+        ->where('fee_cat_id',5)
         ->where('exam_capability',1)
         ->first();
     }

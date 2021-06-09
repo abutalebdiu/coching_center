@@ -13,6 +13,7 @@ use App\Models\Section;
 use App\Models\Batch;
 use App\Models\Sessiones;
 use App\Models\BatchSetting;
+use App\Models\WrittenQuestion;
 use App\Model\FeeCollection;
 use App\Model\McqQuestionSubject;
 class FeeAmountSetting extends Model
@@ -93,12 +94,21 @@ class FeeAmountSetting extends Model
 	/******* when collect other fee amount***** */
 	public function feeCategory($fee_cat_id)
 	{
+
 		if($fee_cat_id == 4) // mcq question
 		{
 			if($this->origin_id != NULL || $this->origin_id != "")
 			{
+				$e = ExamSetting::where('id',$this->origin_id)->where('fee_cat_id',4)
+						->where('fee_cat_id',$this->fee_cat_id)
+						->where('batch_setting_id',$this->batch_setting_id)
+						->where('batch_type_id',$this->batch_type_id)
+						->where('class_id',$this->class_id)
+						->where('session_id',$this->session_id)
+						->first();
+				$question_subject_id = $e?$e->question_subject_id:NULL;
 
-				$data = McqQuestionSubject::find($this->origin_id);
+				$data = McqQuestionSubject::find($question_subject_id);
 				$d['id'] 	= $data?$data->id : NULL;
 				$d['name'] 	= $data?$data->question_no : NULL;
 				return $d;
@@ -106,9 +116,24 @@ class FeeAmountSetting extends Model
 		}
 		else if($fee_cat_id == 5) // written question
 		{
-			$d['id'] 	=  NULL;
-			$d['name'] 	= "not created";
-			return $d;
+			if($this->origin_id != NULL || $this->origin_id != "")
+			{
+				$e = ExamSetting::where('id',$this->origin_id)->where('fee_cat_id',5)
+						->where('fee_cat_id',$this->fee_cat_id)
+						->where('batch_setting_id',$this->batch_setting_id)
+						->where('batch_type_id',$this->batch_type_id)
+						->where('class_id',$this->class_id)
+						->where('session_id',$this->session_id)
+						->first();
+				$question_subject_id = $e?$e->question_subject_id:NULL;
+				$data = WrittenQuestion::find($question_subject_id);
+				$d['id'] 	= $data?$data->id : NULL;
+				$d['name'] 	= $data?$data->question_no : NULL;
+				return $d;
+			}
+			else{
+
+			}
 		}
 		else if($fee_cat_id == 6) // sheet
 		{

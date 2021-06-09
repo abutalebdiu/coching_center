@@ -33,7 +33,7 @@ class McqQuestionController extends Controller
      */
     public function index()
     {
-        $data['questions'] = McqQuestionSubject::whereNull('deleted_at')->latest()->paginate(1);
+        $data['questions'] = McqQuestionSubject::whereNull('deleted_at')->latest()->paginate(100);
         return view('backend.questions.mcq_question.index',$data);
     }
 

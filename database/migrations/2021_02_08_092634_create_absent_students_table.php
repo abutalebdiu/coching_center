@@ -22,6 +22,7 @@ class CreateAbsentStudentsTable extends Migration
             //$table->integer('batch_id')->nullable();
 
             $table->integer('batch_setting_id')->nullable();
+            $table->integer('batch_setting_id')->nullable();
 
             $table->integer('section_id')->nullable();
             $table->integer('month_id')->nullable();

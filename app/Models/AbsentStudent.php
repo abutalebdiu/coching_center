@@ -12,6 +12,7 @@ use App\Models\Month;
 
 use App\Models\Student;
 use App\Model\AbsentMonth;
+use App\Model\BatchType;
 
 use App\User;
 class AbsentStudent extends Model
@@ -48,6 +49,10 @@ class AbsentStudent extends Model
 	public function batchsetting()
 	{
 		return $this->belongsTo(BatchSetting::class,'batch_setting_id','id');
+	}
+	public function batchTypes()
+	{
+		return $this->belongsTo(BatchType::class,'batch_type_id','id');
 	}
 
 	public function studentinfo()

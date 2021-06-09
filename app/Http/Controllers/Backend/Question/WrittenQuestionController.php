@@ -8,6 +8,7 @@ use App\Models\WrittenQuestion;
 use App\Models\Subject;
 use App\Models\Sessiones;
 use App\Models\Classes;
+use App\Models\ExamType;
 use Validator;
 
 class WrittenQuestionController extends Controller
@@ -19,9 +20,8 @@ class WrittenQuestionController extends Controller
      */
     public function index()
     {
-          $data['writtenquestiones'] = WrittenQuestion::latest()->get();
-          
-          return view('backend.questions.writtenquestions.view',$data);
+        $data['writtenquestiones'] = WrittenQuestion::latest()->whereNull('deleted_at')->paginate(100);
+        return view('backend.questions.writtenquestions.view',$data);
     }
 
     /**
@@ -33,8 +33,9 @@ class WrittenQuestionController extends Controller
     {
         $data['classes']        = Classes::all();
         $data['sessiones']      = Sessiones::all();
-        $data['subjectes'] = Subject::latest()->get();
-         return view('backend.questions.writtenquestions.create',$data);
+        $data['subjectes']      = Subject::latest()->get();
+        $data['examTypies']     = ExamType::all();
+        return view('backend.questions.writtenquestions.create',$data);
     }
 
     /**
@@ -45,60 +46,40 @@ class WrittenQuestionController extends Controller
      */
     public function store(Request $request)
     {
-         $validator = Validator::make($request->all(), [
-                'class_id'      => $request->class_id ?'required':'nullable',
-                'session_id'    => $request->class_id ?'required':'nullable',
-                'batch_setting_id'=> $request->class_id ?'required':'nullable',
-                'attachment'     => 'required',
-                
-            ]);
-            
-            if ($validator->fails()){
-                return redirect()->back()
-                            ->withErrors($validator)
-                            ->withInput();
-            }
-            else{
+        $validator = Validator::make($request->all(), [
+            'question_no'   => 'required|min:2|max:255',
+            'subject_id'    => 'required',
+            'class_id'      => 'required',
+            'session_id'    => 'required',
+            'examination_type_id' => 'required',
+            'attachment'     => 'required',
+        ]);
 
+        if ($validator->fails()){
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
-                $writtenquestion = New WrittenQuestion();
+        $insetwrittenquestion = New WrittenQuestion();
 
-                $writtenquestion->class_id          = $request->class_id;
-                $writtenquestion->session_id        = $request->session_id;
-                $writtenquestion->batch_setting_id  = $request->batch_setting_id;
-
-               
-                $attachment = $request->attachment;
-
-                if($attachment){
-                  
-                    $uniqname = uniqid();
-                    $ext = strtolower($attachment->getClientOriginalExtension());
-                    $filepath = 'public/uploads/questions/';
-                    $imagename = $filepath.$uniqname.'.'.$ext;
-                    $attachment->move($filepath,$imagename);
-                    $writtenquestion->attachment = $imagename;
-                }
-
-                $writtenquestion->description   = $request->description;
-                $writtenquestion->subject_id    = $request->subject_id;
-                $writtenquestion->question_type = $request->question_type;
-                $writtenquestion->amount        = $request->amount;
-                $writtenquestion->status        = $request->status;
-
-                $writtenquestion->save();
-
-
-
-                $notification = array(
-                    'message' => 'Question Create Successfully!',
-                    'alert-type' => 'success'
-                );
-
-                return redirect()->route('written.question.index')->with($notification);
-            }  
-
-
+        $attachmentFile = $request->attachment;
+        $input = $request->except('_token') ;//$request->all();
+        if($attachmentFile){
+            $uniqname = uniqid();
+            $ext = strtolower($attachmentFile->getClientOriginalExtension());
+            $filepath = 'public/uploads/questions/';
+            $imagename = $filepath.$uniqname.'.'.$ext;
+            $attachmentFile->move($filepath,$imagename);
+            $input['attachment'] = $imagename;
+        }
+        $input['status'] = 1;
+        $insetwrittenquestion->fill($input)->save();
+        $notification = array(
+            'message' => 'Question Create Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('written.question.index')->with($notification);
     }
 
     /**
@@ -123,6 +104,7 @@ class WrittenQuestionController extends Controller
         $data['classes']        = Classes::all();
         $data['sessiones']      = Sessiones::all();
         $data['subjectes']      = Subject::latest()->get();
+        $data['examTypies']     = ExamType::all();
         $data['question']       = WrittenQuestion::find($id);
 
         return view('backend.questions.writtenquestions.edit',$data);
@@ -138,56 +120,39 @@ class WrittenQuestionController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-                'class_id'      => $request->class_id ?'required':'nullable',
-                'session_id'    => $request->class_id ?'required':'nullable',
-                'batch_setting_id'=> $request->class_id ?'required':'nullable',
-            ]);
-            
-            if ($validator->fails()){
-                return redirect()->back()
-                            ->withErrors($validator)
-                            ->withInput();
-            }
-            else{
+            'question_no'   => 'required|min:2|max:255',
+            'subject_id'    => 'required',
+            'class_id'      => 'required',
+            'session_id'    => 'required',
+            'examination_type_id' => 'required',
+            //'attachment'     => 'required',
+        ]);
 
+        if ($validator->fails()){
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
-                $writtenquestion = WrittenQuestion::find($id);
+        $updateWrittenquestion = WrittenQuestion::find($id);
 
-                $writtenquestion->class_id          = $request->class_id;
-                $writtenquestion->session_id        = $request->session_id;
-                $writtenquestion->batch_setting_id  = $request->batch_setting_id;
-
-               
-                $attachment = $request->attachment;
-
-                if($attachment){
-                  
-                    $uniqname = uniqid();
-                    $ext = strtolower($attachment->getClientOriginalExtension());
-                    $filepath = 'public/uploads/questions/';
-                    $imagename = $filepath.$uniqname.'.'.$ext;
-                    $attachment->move($filepath,$imagename);
-                    $writtenquestion->attachment = $imagename;
-                }
-
-                $writtenquestion->description   = $request->description;
-                $writtenquestion->subject_id    = $request->subject_id;
-                $writtenquestion->question_type = $request->question_type;
-                $writtenquestion->amount        = $request->amount;
-                $writtenquestion->status        = $request->status;
-
-                $writtenquestion->save();
-
-
-
-                $notification = array(
-                    'message' => 'Question Update Successfully!',
-                    'alert-type' => 'success'
-                );
-
-                return redirect()->route('written.question.index')->with($notification);
-            }  
-
+        $attachmentFile = $request->attachment;
+        $input = $request->except('_token') ;//$request->all();
+        if($attachmentFile){
+            $uniqname = uniqid();
+            $ext = strtolower($attachmentFile->getClientOriginalExtension());
+            $filepath = 'public/uploads/questions/';
+            $imagename = $filepath.$uniqname.'.'.$ext;
+            $attachmentFile->move($filepath,$imagename);
+            $input['attachment'] = $imagename;
+        }
+        $input['status'] = 1;
+        $updateWrittenquestion->fill($input)->save();
+        $notification = array(
+            'message' => 'Question Updated Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('written.question.index')->with($notification);
     }
 
     /**
@@ -198,9 +163,11 @@ class WrittenQuestionController extends Controller
      */
     public function destroy($id)
     {
-         WrittenQuestion::find($id)->delete();
-
-         $notification = array(
+        $date = WrittenQuestion::find($id);
+        $date->status = 0;
+        $date->deleted_at = date('Y-m-d h:i:s');
+        $date->save();
+        $notification = array(
                 'message' => 'Question Delete Successfully!',
                 'alert-type' => 'success'
         );

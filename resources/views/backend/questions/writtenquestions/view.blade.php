@@ -31,13 +31,12 @@
                     <thead>
                     <tr>
                         <th class="text-nowrap">Serial No</th>
+                        <th class="text-nowrap">Question No/Name</th>
+                        <th class="text-nowrap">Subject Name</th>
                         <th class="text-nowrap">Class</th>
                         <th class="text-nowrap">Session</th>
-                        <th class="text-nowrap">Batch</th>
-                        <th class="text-nowrap">Subject</th>
-                        <th class="text-nowrap">Question Type</th>
-                        <th class="text-nowrap">Amount</th>
-                        <th class="text-nowrap">Question File</th>
+                        <th class="text-nowrap">Examination Type</th>
+                        <th class="text-nowrap">Question</th>
                         <th class="text-nowrap">Status</th>
                         <th class="text-nowrap">Action</th>
                     </tr>
@@ -48,33 +47,31 @@
 
                         <tr>
                             <td>{{ $loop->iteration }}</td>
+                            <td>{{ $question->question_no }}</td>
+                            <td>{{ $question->subject?$question->subject->name:'' }}</td>
                             <td>{{ $question->classes?$question->classes->name:'' }}</td>
                             <td>{{ $question->sessiones?$question->sessiones->name:'' }}</td>
-                            <td>{{ $question->batchsetting?$question->batchsetting->batch_name:'' }}</td>
-                            <td>{{ $question->subject?$question->subject->name:'' }}</td>
-                            <td>{{ $question->question_type }}</td>
-                            <td>{{ $question->amount }}</td>
+                            <td>{{ $question->ExamTypies?$question->ExamTypies->name:'' }}</td>
                             <td>
                                 <a href="{{ asset($question->attachment) }}" download="" class="btn btn-primary btn-sm">Download</a>
                             </td>
                             <td>
                                  @if($question->status==1)
-                                    <p class="btn btn-primary btn-sm">Active</p>
+                                    <span class="btn btn-primary btn-sm">Active</span>
                                 @elseif($question->status==2)
-                                    <p class="btn btn-danger btn-sm">inactive</p>
+                                    <span class="btn btn-danger btn-sm">inactive</span>
                                 @endif
                             </td>
                             <td>
                                 <a href="{{ route('written.question.edit',$question->id) }}" class="btn btn-primary btn-sm"> Edit</a>
+                                <a href="{{ route('admin.written-setting.create','qid='.$question->id) }}" class="btn btn-primary btn-sm"> Setting</a>
                                 <a href="{{ route('written.question.destroy',$question->id) }}" class="btn btn-danger btn-sm"> Delete</a>
                             </td>
                         </tr>
-
-
                         @endforeach
-                    
                     </tbody>
                 </table>
+                {{$writtenquestiones->links()}}
             </div>
 
 

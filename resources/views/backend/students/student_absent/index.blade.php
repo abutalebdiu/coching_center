@@ -32,8 +32,9 @@
                                 <th class="text-nowrap">Student Name</th>
                                 <th class="text-nowrap">Class</th>
                                 <th class="text-nowrap">Session</th>
-                                <th class="text-nowrap">Section</th>
+                                {{--  <th class="text-nowrap">Section</th>  --}}
                                 <th class="text-nowrap">Batch</th>
+                                <th class="text-nowrap">Type</th>
                                 <th class="text-nowrap">Absent Month</th>
                                 <th class="text-nowrap">Action</th>
                             </tr>
@@ -54,11 +55,14 @@
                                     <td>
                                         {{ $absent->sessiones?$absent->sessiones->name:NULL }}
                                     </td>
-                                    <td>
+                                   {{--   <td>
                                         {{ $absent->sections?$absent->sections->name:NULL }}
-                                    </td>
+                                    </td>  --}}
                                     <td>
                                         {{ $absent->batchsetting?$absent->batchsetting->batch_name:NULL }}
+                                    </td>
+                                    <td>
+                                        {{ $absent->batchTypes?$absent->batchTypes->name:NULL }}
                                     </td>
                                     <td>
                                         @php $i = 1; @endphp

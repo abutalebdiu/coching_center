@@ -56,9 +56,10 @@
                         <tr>
                             <th>Batch</th>
                             <td>{{ $student->batchsetting?$student->batchsetting->batch_name:NULL }}</td>
-                            <th>Roll</th>
-                            <td>{{ $student->students?$student->students->roll:NULL }}</td>
+                            <th>Batch Type</th>
+                            <td>{{ $student->batchTypes?$student->batchTypes->name:NULL }}</td>
                         </tr>
+                       
                         <tr>
                             <th>Admission Date</th>
                             <td>{{ $student->students?$student->students->admission_date:NULL }}</td>
@@ -68,10 +69,8 @@
                         </tr>
 
                         <tr>
-                            <th>Student Type</th>
-                            <td>
-                                {{ $student->students?$student->students->studentype?$student->students->studentype->name:NULL:NULL }}
-                            </td>
+                            <th>Roll</th>
+                            <td>{{ $student->students?$student->students->roll:NULL }}</td>
                             <th width="10%">Status</th>
                             <td width="40%">
                                  @if($student->students?$student->students->activate_status:NULL ==1)
