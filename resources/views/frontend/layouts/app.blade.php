@@ -52,8 +52,20 @@
                         </div>
                         <div class="col-12 col-sm-8 col-md-5">
                             <div class="ht-right align-self-center">
+
+                                @if(Auth::check())
+
+                                <a href="{{ route('student.dashboard') }}"> <i class="fa fa-dashboard"></i>Dashboard </a>
+                                <a href="{{ route('student.logout') }}" class="ml-2"> <i class="fa fa-sign-out"></i>Logout </a>
+                                
+                                @else
+
+
                                 <a href="{{ route('student.login') }}"> <i class="fa fa-user"></i>Login </a>
                                 <a href="{{ route('student.register') }}" class="ml-2"> <i class="fa fa-user"></i>Registation </a>
+
+
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -72,7 +84,7 @@
                             <div class="sub-menu">
                                 <a href="{{ route('board.questiones') }}">Board Question</a>
                                 <a href="{{ route('school.questiones') }}">School Question</a>
-                                <a href="service-details.html">Lecture Sheet</a>
+                                <a href="{{ route('lecture.sheet') }}">Lecture Sheet</a>
                             </div>
                         </li>
                         <li><a href="{{ route('allbatch') }}"> Admissions </a></li>
@@ -200,7 +212,7 @@
                         <div class="fl-discription">
                             <a href="{{ route('frontend') }}"><i class="fa fa-long-arrow-right mr-2"></i><span>Home</span></a> 
                             <a href="{{ route('about') }}"><i class="fa fa-long-arrow-right mr-2"></i><span>About</span></a> 
-                            <a href="{{ route('contact') }}"><i class="fa fa-long-arrow-right mr-2"></i><span>Contect</span></a>
+                            <a href="{{ route('contact') }}"><i class="fa fa-long-arrow-right mr-2"></i><span>Contact</span></a>
                             <a href="{{ route('student.login') }}"><i class="fa fa-long-arrow-right mr-2"></i><span>Login</span></a>
                             <a href="{{ route('student.register') }}"><i class="fa fa-long-arrow-right mr-2"></i><span>Registation</span></a>
                         </div>
@@ -259,6 +271,7 @@
     <script src="{{ asset('public/frontend') }}/js/bootstrap.min.js"></script>
     <script src="{{ asset('public/frontend') }}/js/wow.min.js"></script>
     <script src="{{ asset('public/frontend') }}/js/parallax.min.js"></script>
+    <script src="{{ asset('public/frontend') }}/js/slick.min.js"></script>
     <script src="{{ asset('public/frontend') }}/js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 

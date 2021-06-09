@@ -156,3 +156,55 @@ $(document).ready( function () {
     $('#table3_id').DataTable();
 } );
 
+
+
+$(document).ready(function () {
+    $('#ud-mobile-btn').click(function () {
+        $('.mobile-user-dashboard').addClass('mud-add');
+        $("body").addClass('hover-body');
+    });
+
+    $('#mud-close-btn').click(function () {
+        $('.mobile-user-dashboard').removeClass('mud-add');
+    });
+});
+
+
+
+//slick slider
+$('.autoplay').slick({
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    dots: false,
+    arrows: true,
+    nextArrow: $('.nxt'),
+    prevArrow: $('.prv'),
+    responsive: [{
+            breakpoint: 1200,
+            settings: {
+                slidesToShow: 3,
+                slidesToScroll: 1,
+
+
+            }
+                },
+        {
+            breakpoint: 992,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1,
+            }
+                },
+        {
+            breakpoint: 768,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+            }
+                }
+
+            ]
+
+});

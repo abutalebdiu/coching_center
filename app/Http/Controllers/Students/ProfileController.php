@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Validator;
 use App\User;
+use App\Models\StudentInfo;
 
 
 class ProfileController extends Controller
@@ -75,10 +76,211 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+         $validator = Validator::make($request->all(), [
+            'mobile'    => 'required|unique:users,mobile,'.Auth::user()->id,
+            'name'      => 'required',
+            'address'   => 'required',
+        ]);
+
+        if ($validator->fails()){
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        else{
+
+            $user = User::find(Auth::user()->id);
+
+            $user->name     = $request->name;
+            $user->mobile   = $request->mobile;
+            $user->email    = $request->email;
+            $user->address  = $request->address;
+            $user->save();
+
+            $notification = array(
+                'message' => 'Profile update successfully Completed!',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->route('student.profile')->with($notification);
+
+        }
     }
+
+
+
+
+
+    public function personalinformation()
+    {
+
+                
+            $countinfo = StudentInfo::where('user_id',Auth::user()->id)->count();
+
+            if($countinfo>0)
+            {
+
+                $data['student'] = StudentInfo::where('user_id',Auth::user()->id)->first();
+
+                return view('frontend.studentdashboard.personalinformation',$data);
+            }
+            else{
+                 return view('frontend.studentdashboard.personalinformationcreate');
+            }
+
+           
+    }
+
+
+
+    
+
+
+    public function personalinformationstore(Request $request)
+    {
+
+         $validator = Validator::make($request->all(), [
+            'father'    => 'required',
+            'guardian_mobile'      => 'required',
+            'address'   => 'required',
+        ]);
+
+        if ($validator->fails()){
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        else{
+
+            $studentinfo = New StudentInfo();
+
+            $studentinfo->user_id           = Auth::user()->id;
+            $studentinfo->father            = $request->father;
+            $studentinfo->mother            = $request->mother;
+            $studentinfo->guardian_mobile   = $request->guardian_mobile;
+            $studentinfo->own_mobile        = $request->own_mobile;
+            $studentinfo->address           = $request->address;
+            $studentinfo->whatsapp_number   = $request->whatsapp_number;
+            $studentinfo->facebook_id       = $request->facebook_id;
+            $studentinfo->bkash_number      = $request->bkash_number;
+            $studentinfo->email             = $request->email;
+            $studentinfo->address           = $request->address;
+            $studentinfo->save();
+
+
+
+            $notification = array(
+                'message' => 'Personal Information successfully Inserted!',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->route('student.personal.information')->with($notification);
+
+        }
+
+
+    }
+
+    
+ 
+    public function personalinformationedit()
+    {
+          $data['student'] = StudentInfo::where('user_id',Auth::user()->id)->first();
+
+          return view('frontend.studentdashboard.personalinformationedit',$data);
+    }
+
+
+
+    public function personalinformationupdate(Request $request)
+    {
+          $validator = Validator::make($request->all(), [
+            'father'    => 'required',
+            'guardian_mobile'      => 'required',
+            'address'   => 'required',
+        ]);
+
+        if ($validator->fails()){
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        else{
+
+            $studentinfo =  StudentInfo::where('user_id',Auth::user()->id)->first();
+
+            $studentinfo->father            = $request->father;
+            $studentinfo->mother            = $request->mother;
+            $studentinfo->guardian_mobile   = $request->guardian_mobile;
+            $studentinfo->own_mobile        = $request->own_mobile;
+            $studentinfo->address           = $request->address;
+            $studentinfo->whatsapp_number   = $request->whatsapp_number;
+            $studentinfo->facebook_id       = $request->facebook_id;
+            $studentinfo->bkash_number      = $request->bkash_number;
+            $studentinfo->email             = $request->email;
+            $studentinfo->address           = $request->address;
+
+            $studentinfo->save();
+
+            $notification = array(
+                'message' => 'Personal Information successfully Updated!',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->route('student.personal.information')->with($notification);
+
+        }
+    } 
+
+
+
+
+
+
+
+
+
+    public function  setting()
+    {
+        return view('frontend.studentdashboard.setting');
+    }
+
+
+
+
+    public function settingupdate(Request $request)
+    {   
+        $this->validate($request,[
+            'current_password'  => 'required',
+            'new_password'      => 'min:6|required_with:password_confirmation|same:password_confirmation',
+            'password_confirmation'=>'min:6'
+        ]);
+        if(Auth::attempt(['id' => Auth::user()->id, 'password' => $request->current_password])){
+            $user = User::find(Auth::user()->id);
+            $user->password = bcrypt($request->new_password);
+            $user->save();
+            $notification = array(
+            'message' => 'Successfully password changed.',
+            'alert-type' => 'success'
+             );
+            return redirect()->route('student.profile')->with($notification);
+        }else{
+            $notification = array(
+            'message' => 'Sorry! Your current password dost not match.',
+            'alert-type' => 'error'
+             );
+            return redirect()->back()->with($notification);
+        }
+        
+    }
+
+
+
+
+
+
 
     /**
      * Remove the specified resource from storage.

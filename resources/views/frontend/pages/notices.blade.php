@@ -48,7 +48,7 @@
 											<td>{{ Date('M d,Y',strtotime($notice->publish_date)) }}</td>
 											<td>{{ $notice->title }}</td>
 											<td><a href="{{ asset($notice->noticesfile) }}" title="{{ $notice->title }}" download=""> <i class="fa fa-download"></i> Download</a>
-										    <a href="" title="{{ $notice->title }}"> <i class="fa fa-eye"></i> View</a>
+										    <a href="{{ route('notice.detail',$notice->slug) }}" title="{{ $notice->title }}"> <i class="fa fa-eye"></i> View</a>
 											</td>
 											 
 										</tr>

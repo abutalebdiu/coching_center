@@ -124,6 +124,26 @@ class FrontendController extends Controller
 
 
 
+	public function lecturesheet()
+	{
+		
+		$data['lecturesheetes'] = [];
+
+		return view('frontend.pages.lecturesheet',$data);	
+	}
+
+
+
+	public function lecturesheetdetail()
+	{
+		
+		$data['lecturesheetes'] = [];
+
+		return view('frontend.pages.lecturesheetdetail',$data);	
+	}
+
+
+
 
 
 
@@ -195,7 +215,7 @@ class FrontendController extends Controller
 
 	public function noticedetail($slug)
 	{
-		$data['notices'] = Notice::latest()->get();
+		$data['notice'] = Notice::where('slug',$slug)->first();
 		return view('frontend.pages.noticedetail',$data);
 	}
 

@@ -36,6 +36,10 @@ Route::get('about','FrontendController@about')->name('about');
 Route::get('board/questiones','FrontendController@boardquestiones')->name('board.questiones');
 Route::get('school/questiones','FrontendController@schoolquestiones')->name('school.questiones');
 
+Route::get('lecture/sheet','FrontendController@lecturesheet')->name('lecture.sheet');
+
+Route::get('lecture/sheet/detail','FrontendController@lecturesheetdetail')->name('lecture.sheet.detail');
+
 
 
 
@@ -59,7 +63,7 @@ Route::get('blogs','FrontendController@blogs')->name('blogs');
 Route::get('blog/detail/{id}','FrontendController@blogdetail')->name('blog.detail');
 
 Route::get('notices','FrontendController@notices')->name('notices');
-Route::get('notice/detail/{id}','FrontendController@noticedetail')->name('notice.detail');
+Route::get('notice/detail/{slug}','FrontendController@noticedetail')->name('notice.detail');
 
 
 Route::get('contact','FrontendController@contact')->name('contact');
@@ -94,16 +98,47 @@ Route::group(['namespace' => 'Students','middleware' => ['auth', 'student']], fu
 
 
     Route::get('student/dashboard','DashboardController@index')->name('student.dashboard');
+
+
+
+
+
+
+    Route::get('student/batch/enroll','StudentController@batchlist')->name('student.batch.enroll');
+    Route::get('student/batch/enroll/detail/{id}','StudentController@batch_detail')->name('student.batch.enroll.detail');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     Route::get('student/profile','ProfileController@index')->name('student.profile');
     Route::get('student/profile/edit','ProfileController@edit')->name('student.profile.edit');
     Route::post('student/profile/update','ProfileController@update')->name('student.profile.update');
 
 
 
+    Route::get('student/setting','ProfileController@setting')->name('student.setting');
+    Route::post('student/setting/update','ProfileController@settingupdate')->name('student.setting.update');
 
 
-
-
+    Route::get('student/personal/information','ProfileController@personalinformation')->name('student.personal.information');
+    Route::get('student/personal/information/create','ProfileController@personalinformationcreate')->name('student.personal.information.create');
+    Route::post('student/personal/information/store','ProfileController@personalinformationstore')->name('student.personal.information.store');
+    Route::get('student/personal/information/edit','ProfileController@personalinformationedit')->name('student.personal.information.edit');
+    Route::post('student/personal/information/update','ProfileController@personalinformationupdate')->name('student.personal.information.update');
 
 });
 

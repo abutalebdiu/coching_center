@@ -68,7 +68,7 @@
                         
                         <hr />
                         <p class="text-center text-grey-darker mb-0">
-                            &copy; Newspaper. All Right Reserved 2020
+                            &copy; {{ $websetting->site_name }}. All Right Reserved 2021
                         </p>
                     </form>
                 </div>
