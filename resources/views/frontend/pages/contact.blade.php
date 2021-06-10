@@ -63,7 +63,17 @@
                         <p class="wow animate__ animate__fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;"><span><i class="fa fa-envelope-o pr-2"></i>Email - </span> {{ $websetting->email }}</p>
 
                         <p class="wow animate__ animate__fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;"><span><i class="fa fa-facebook pr-2"></i>facebook Page - </span><a href="#" target="_blank"> facebook</a></p>
+
+                        <p>
+                               
+                        </p>
                     </div>
+                    <div class="fc-social-media">
+                        @foreach($socialmedia as $media)
+                            <a href="{{ $media->link }}" target="_blank" title="{{ $media->name }}"><i class="{{ $media->icon }}"></i>
+                            </a>
+                        @endforeach
+                    </div> 
                 </div>
             </div>
         </div>

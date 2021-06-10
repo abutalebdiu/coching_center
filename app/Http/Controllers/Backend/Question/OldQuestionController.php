@@ -59,7 +59,7 @@ class OldQuestionController extends Controller
         ]);
 
 		$old_question = new OldQuestion();
-        $old_question->question_type_id = $request->question_type_id;
+        $old_question->question_type_id = 1;
         $old_question->schoolname = $request->schoolname;
         $old_question->year_id = $request->year_id;
         $old_question->class_id = $request->class_id;
@@ -137,7 +137,7 @@ class OldQuestionController extends Controller
         ]);
 
         $old_question = OldQuestion::find($id);
-        $old_question->question_type_id = $request->question_type_id;
+
         $old_question->schoolname = $request->schoolname;
         $old_question->year_id = $request->year_id;
         $old_question->class_id = $request->class_id;
@@ -193,9 +193,120 @@ class OldQuestionController extends Controller
     public function boardquestionindex()
     {
 
-
-        $data['boardquestions'] = OldQuestion::where('question_type_id',2)->get();
+        $data['boardquestions'] = OldQuestion::where('question_type_id',2)->latest()->get();
         return view('backend.questions.questions.boardquestions',$data);
+    }
+
+
+
+    public function boardquestioncreate()
+    {
+        $data['years'] = Year::all();
+        $data['board_questions'] = BoardQuestionType::all();
+        $data['subjects'] = Subject::all();
+
+        return view('backend.questions.questions.boardquestionadd',$data);
+    }
+
+
+
+
+    public function boardquestionstore(Request $request)
+    {
+        $request->validate([
+            'board_question_type_id' => 'required',
+            'year_id' => 'required',
+            'questionfile' => 'required',
+
+        ]);
+
+        $old_question = new OldQuestion();
+
+        $old_question->question_type_id = 2;
+        $old_question->year_id = $request->year_id;
+        $old_question->subject_id = $request->subject_id;
+        $old_question->board_question_type_id = $request->board_question_type_id;
+
+
+        $questionfile = $request->questionfile;
+
+        if($questionfile){
+
+            $uniqname = uniqid();
+            $ext = strtolower($questionfile->getClientOriginalExtension());
+            $filepath = 'public/images/old_question/';
+            $filename = $filepath.$uniqname.'.'.$ext;
+            $questionfile->move($filepath,$filename);
+            $old_question->questionfile = $filename;
+        }
+
+        $old_question->status = $request->status;
+        $old_question->user_id = Auth::user()->id;
+        $old_question->save();
+
+        $notification = array(
+            'message' => 'Board Question Create Successfully!',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('boardquestion.index')->with($notification);
+
+    }
+
+
+
+       public function boardquestionedit($id)
+    {
+
+        $data['old_qus'] = OldQuestion::find($id);
+        $data['years'] = Year::all();
+        $data['board_questions'] = BoardQuestionType::all();
+        $data['subjects'] = Subject::all();
+        return view('backend.questions.questions.boardquestionedit',$data);
+    }
+
+
+
+
+     public function boardquestionupdate(Request $request,$id)
+    {
+        $request->validate([
+            'board_question_type_id' => 'required',
+            'year_id' => 'required',
+
+        ]);
+
+        $old_question = OldQuestion::find($id);
+
+        $old_question->question_type_id = 2;
+        $old_question->year_id = $request->year_id;
+        $old_question->subject_id = $request->subject_id;
+        $old_question->board_question_type_id = $request->board_question_type_id;
+
+
+        $questionfile = $request->questionfile;
+
+        if($questionfile){
+            @unlink($old_question->questionfile);
+            $uniqname = uniqid();
+            $ext = strtolower($questionfile->getClientOriginalExtension());
+            $filepath = 'public/images/old_question/';
+            $filename = $filepath.$uniqname.'.'.$ext;
+            $questionfile->move($filepath,$filename);
+            $old_question->questionfile = $filename;
+        }
+
+        $old_question->status = $request->status;
+        $old_question->user_id = Auth::user()->id;
+        $old_question->save();
+
+        $notification = array(
+            'message' => 'Board Question Update Successfully!',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('boardquestion.index')->with($notification);
+
     }
 
 
@@ -203,6 +314,20 @@ class OldQuestionController extends Controller
 
 
 
+
+
+
+     public function boardquestiondestroy($id)
+    {
+        $old_qus =  OldQuestion::find($id)->delete();
+
+        $notification = array(
+            'message' => 'Board Question Delete Successfully!',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('boardquestion.index')->with($notification);
+    }
 
 
 

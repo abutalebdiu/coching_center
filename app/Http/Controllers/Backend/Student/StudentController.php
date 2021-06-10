@@ -30,7 +30,7 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         /**moinul created */
-        $data['allstudents'] = Student::where('activate_status',1)->latest()->paginate(100);
+       /* $data['allstudents'] = Student::where('activate_status',1)->latest()->paginate(100);
         return view('backend.students.view',$data);
 
         $data['allstudents'] = User::whereNull('deleted_at')
@@ -38,8 +38,15 @@ class StudentController extends Controller
                             ->where('status',1)
                             ->latest()
                             ->get();
-        return view('backend.students.view',$data);
+        return view('backend.students.view',$data);*/
         /**moinul created */
+
+
+        $data['classes']        = Classes::all();
+        $data['sessiones']      = Sessiones::all();
+        
+        $data['batchTypes']     = BatchType::whereNull('deleted_at')->get();
+
 
         $query = Student::query();
         if($request->class_id)
@@ -72,7 +79,7 @@ class StudentController extends Controller
             $query                      = $query->where('student_type_id',$request->student_type_id);
         }
 
-        $data['students'] = $query->orderBy('id','DESC')->where('activate_status',1)->get();
+        $data['allstudents'] = $query->orderBy('id','DESC')->where('activate_status',1)->paginate(100);
 
         return view('backend.students.view',$data);
     }

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\WebSetting;
+use App\Models\SocialMedia;
 use Illuminate\Support\Facades\Schema;
 
 
@@ -31,6 +32,12 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*', function($view){
             $websetting = WebSetting::find(1);
             $view->with('websetting',$websetting);
+        });
+
+
+        view()->composer('*', function($view){
+            $socialmedia = SocialMedia::get();
+            $view->with('socialmedia',$socialmedia);
         });
 
        

@@ -1,24 +1,26 @@
 @extends('frontend.layouts.app')
-@section('title','Student Profile')
+@section('title', 'Student Profile')
 @section('content')
 
-	<section class="user-dashboard">
+    <!--USER DASHBOARD-->
+    <section class="user-dashboard py-4">
         <div class="container">
-           <div class="row">
+            <div class="dashboard-area d-flex bd-highlight">
+                
 
+          
+            @include('frontend.studentdashboard.dashboardmenu')
+         
 
-               @include('frontend.studentdashboard.dashboardmenu')
-
-               <div class="col-12 col-md-9">
-                <div class="dashboard-main w-100 bd-highlight py-3 mt-3">
-                    <div class="dr-head">
-                        <h6>Profile</h6>
-                        <hr>
+              <div class="dashboard-main w-100 bd-highlight py-3">
+                  <div class="dr-head">
+                      <div class="ud-mobile">
+                            <i class="fa fa-bars" id="ud-mobile-btn"></i> Menu
+                        </div>
+                        <h6> Student Profile </h6>
                     </div>
-
                     <div class="hr-body">
-                   
-                         <table class="table table-bordered table-hovered">
+                        <table class="table table-bordered table-hovered">
                            <thead>
                              <tr>
                                <th>Menu</th>
@@ -26,6 +28,11 @@
                              </tr>
                            </thead>
                            <tbody>
+                             <tr>
+                                <th>User ID</th>
+                                <td>{{ $student->useruid }}</td>
+                             </tr>
+
                              <tr>
                                 <th>Name</th>
                                 <td>{{ $student->name }}</td>
@@ -49,14 +56,17 @@
 
                            </tbody>
                          </table>
-                   
                     </div>
-                 </div>
+                </div>
 
-               </div>
-           </div>
-           
+            </div>
         </div>
     </section>
+    <!--END USER DASHBOARD-->
+
+
+
+    @include('frontend.studentdashboard.mobilemenu')
+
 
 @endsection

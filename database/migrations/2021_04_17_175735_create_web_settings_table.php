@@ -17,6 +17,7 @@ class CreateWebSettingsTable extends Migration
             $table->id();
             $table->string('site_name')->nullable();
             $table->string('homepage_title')->nullable();
+            $table->text('about')->nullable();
             $table->string('meta_tags')->nullable();
             $table->string('meta_description')->nullable();
             $table->string('sitebanner')->nullable();

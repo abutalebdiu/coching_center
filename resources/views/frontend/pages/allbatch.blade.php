@@ -56,37 +56,40 @@
 									</div>
 
 								</div>
-								<table class="table table-bordered table-hovered">
-                                <thead>
-                                    <tr>
-                                        <th>SL</th>
-                                        <th>Batch Name</th>
-                                        <th>Class</th>
-                                        <th>Session</th>
-                                        <th>Day Of Class</th>
-                                        <th>Amount <i class="fa fa-money"></i></th>
-                                        <th>Batch Type</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($BatchSettings as $schedule)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $schedule->batch_name }}</td>
-                                        <td>{{ $schedule->classes?$schedule->classes->name:"" }}</td>
-                                        <td>{{ $schedule->sessiones?$schedule->sessiones->name:'' }}</td>
-                                        <td>{{ $schedule->dayandtime->count() }}/Week</td>
-                                        <td> </td>
-                                        <td>
-                                            <p class="btn btn-primary btn-sm">{{ $schedule->classtype?$schedule->classtype->name:'' }}</p>
-                                        </td>
-                                        <td> <a href="{{ route('batch.enroll',$schedule->id) }}" class="btn btn-success btn-sm">Enroll Now</a> </td>
-                                    </tr>
-                                    @endforeach
-                                    
-                                </tbody>
-                            </table>
+								<div class="table-responsive">
+								    <table class="table table-bordered table-hovered">
+		                                <thead>
+		                                    <tr>
+		                                        <th>SL</th>
+		                                        <th>Batch Name</th>
+		                                        <th>Class</th>
+		                                        <th>Session</th>
+		                                        <th>Day Of Class</th>
+		                                        <th>Amount <i class="fa fa-money"></i></th>
+		                                        <th>Batch Type</th>
+		                                        <th>Status</th>
+		                                    </tr>
+		                                </thead>
+		                                <tbody>
+		                                    @foreach($BatchSettings as $schedule)
+		                                    <tr>
+		                                        <td>{{ $loop->iteration }}</td>
+		                                        <td>{{ $schedule->batch_name }}</td>
+		                                        <td>{{ $schedule->classes?$schedule->classes->name:"" }}</td>
+		                                        <td>{{ $schedule->sessiones?$schedule->sessiones->name:'' }}</td>
+		                                        <td>{{ $schedule->dayandtime->count() }}/Week</td>
+		                                        <td> </td>
+		                                        <td>
+		                                            <p class="btn btn-primary btn-sm">{{ $schedule->classtype?$schedule->classtype->name:'' }}</p>
+		                                        </td>
+		                                        <td> <a href="{{ route('batch.enroll',$schedule->id) }}" class="btn btn-success btn-sm">Enroll Now</a> </td>
+		                                    </tr>
+		                                    @endforeach
+		                                    
+		                                </tbody>
+		                            </table>
+
+								</div>
 							</div>
 						</div>
 					</div>

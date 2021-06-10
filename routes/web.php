@@ -30,12 +30,30 @@ Route::get('clear', function() {
 
 
 Route::get('/','FrontendController@index')->name('frontend');
+Route::get('about','FrontendController@about')->name('about');
+
+
+Route::get('board/questiones','FrontendController@boardquestiones')->name('board.questiones');
+Route::get('school/questiones','FrontendController@schoolquestiones')->name('school.questiones');
+
+Route::get('lecture/sheet','FrontendController@lecturesheet')->name('lecture.sheet');
+
+Route::get('lecture/sheet/detail','FrontendController@lecturesheetdetail')->name('lecture.sheet.detail');
+
+
+
+
+
+
+
+
 Route::get('allbatch','FrontendController@allbatch')->name('allbatch');
 Route::get('batch/enroll/{id}','FrontendController@batchenroll')->name('batch.enroll');
 
 
 
-Route::get('about','FrontendController@about')->name('about');
+
+
 
 
 
@@ -45,7 +63,7 @@ Route::get('blogs','FrontendController@blogs')->name('blogs');
 Route::get('blog/detail/{id}','FrontendController@blogdetail')->name('blog.detail');
 
 Route::get('notices','FrontendController@notices')->name('notices');
-Route::get('notice/detail/{id}','FrontendController@noticedetail')->name('notice.detail');
+Route::get('notice/detail/{slug}','FrontendController@noticedetail')->name('notice.detail');
 
 
 Route::get('contact','FrontendController@contact')->name('contact');
@@ -80,16 +98,47 @@ Route::group(['namespace' => 'Students','middleware' => ['auth', 'student']], fu
 
 
     Route::get('student/dashboard','DashboardController@index')->name('student.dashboard');
+
+
+
+
+
+
+    Route::get('student/batch/enroll','StudentController@batchlist')->name('student.batch.enroll');
+    Route::get('student/batch/enroll/detail/{id}','StudentController@batch_detail')->name('student.batch.enroll.detail');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     Route::get('student/profile','ProfileController@index')->name('student.profile');
     Route::get('student/profile/edit','ProfileController@edit')->name('student.profile.edit');
     Route::post('student/profile/update','ProfileController@update')->name('student.profile.update');
 
 
 
+    Route::get('student/setting','ProfileController@setting')->name('student.setting');
+    Route::post('student/setting/update','ProfileController@settingupdate')->name('student.setting.update');
 
 
-
-
+    Route::get('student/personal/information','ProfileController@personalinformation')->name('student.personal.information');
+    Route::get('student/personal/information/create','ProfileController@personalinformationcreate')->name('student.personal.information.create');
+    Route::post('student/personal/information/store','ProfileController@personalinformationstore')->name('student.personal.information.store');
+    Route::get('student/personal/information/edit','ProfileController@personalinformationedit')->name('student.personal.information.edit');
+    Route::post('student/personal/information/update','ProfileController@personalinformationupdate')->name('student.personal.information.update');
 
 });
 
@@ -293,6 +342,17 @@ Route::group(['prefix'=>'admin/user','namespace'=>'Backend\Student','middleware'
 
 
 
+
+//about page
+Route::group(['prefix'=>'admin/about','namespace'=>'Backend\about','middleware'=>['auth','admin']],function (){
+    Route::get("/index", "AboutController@index")->name("admin.about.index");
+    Route::get("/show/{id}", "AboutController@show")->name("admin.about.show");
+    Route::get("/create", "AboutController@create")->name("admin.about.create");
+    Route::get("/edit/{id}", "AboutController@edit")->name("admin.about.edit");
+    Route::post("/update/{id}", "AboutController@update")->name("admin.about.update");
+    Route::post("/create/post", "AboutController@store")->name("admin.about.store");
+    Route::get("/destroy/{id}", "AboutController@destroy")->name("admin.about.destroy");
+});
 
 
 
@@ -507,9 +567,14 @@ Route::group(['namespace' => 'Backend\Question' ,'middleware' => ['auth', 'admin
         Route::get('destroy/{id}','OldQuestionController@destroy')->name('old_question.destroy');
 
 
-
-
         Route::get('boardquestion/index','OldQuestionController@boardquestionindex')->name('boardquestion.index');
+        Route::get('boardquestion/create','OldQuestionController@boardquestioncreate')->name('boardquestion.create');
+        Route::post('boardquestion/store','OldQuestionController@boardquestionstore')->name('boardquestion.store');
+        Route::get('boardquestion/edit/{id}','OldQuestionController@boardquestionedit')->name('boardquestion.edit');
+        Route::post('boardquestion/update/{id}','OldQuestionController@boardquestionupdate')->name('boardquestion.update');
+        Route::get('boardquestion/destroy/{id}','OldQuestionController@boardquestiondestroy')->name('boardquestion.destroy');
+
+        
 
     });
 

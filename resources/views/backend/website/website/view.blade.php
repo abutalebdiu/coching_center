@@ -42,6 +42,13 @@
                          	<td>
                          		{{ $setting->homepage_title }}
                          	</td>
+                         </tr> 
+
+                         <tr>
+                            <th>About Description</th>
+                            <td>
+                                {{ $setting->about }}
+                            </td>
                          </tr>
 
                          <tr>

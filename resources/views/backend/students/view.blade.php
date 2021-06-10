@@ -23,6 +23,36 @@
                 </div>
                 <div class="panel-body">
 
+
+
+                    <form action="" method="get" class="form-inline">
+                        <select name="class_id" id="class_id" class="class_id form-control mr-3" >
+                            <option value="">Select Class</option>
+                            @foreach($classes as $class)
+                                <option @if(isset($class_id)) {{ $class_id == $class->id ? 'selected' :'' }} @endif value="{{ $class->id }}"> {{ $class->name }}</option>
+                            @endforeach
+                        </select>
+
+                        <select name="session_id" id="session_id" class="session_id form-control mr-3" >
+                            <option value="">Select Session</option>
+                            @foreach($sessiones as $session)
+                                <option @if(isset($session_id)) {{ $session_id == $session->id ? 'selected' :'' }} @endif value="{{ $session->id }}"> {{ $session->name }}</option>
+                            @endforeach
+                        </select>
+
+                         <select name="batch_setting_id" id="batch_setting_id" class="batch_setting_id form-control mr-3" >
+                             <option  value="">Select Batch</option>
+                        </select>
+
+                        <button type="submit" class="btn btn-primary btn-sm"> <i class="fa fa-search"></i>  Search</button>
+                        
+                    </form>
+
+
+
+
+
+
                     <a href="{{ route('student.create') }}" class="btn btn-primary btn-sm float-right mb-1" id="create-new-batch"><i class="fa fa-plus"></i> Add New Student</a>
 
                     <table id="laravel_datatable" class="table table-striped table-bordered table-td-valign-middle">
@@ -125,7 +155,80 @@
 
 @section('customjs')
 
+    <script>
+        $(document).ready( function () {
+            $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+          });
 
+        $(document).ready(function(){
+            getBatchSetting();
+            getClassType();
+        });
+
+        $(document).on('change','.class_id ,.session_id', function () {
+              getBatchSetting();
+        });
+
+        function getBatchSetting()
+        {
+            var class_id    = $('.class_id').val();
+              var session_id  = $('.session_id').val();
+                if(class_id && session_id)
+                {
+                    $.ajax({
+                        type: "get",
+                        url: "{{ route('get.batch.setting') }}",
+                        data: {class_id:class_id,session_id:session_id},
+                        success: function (data) {
+                            if(data.status == true)
+                            {
+                                $(".batch_setting_id").html(data.batch_setting);
+                            }
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+                    });
+                }
+        }
+
+
+
+        $(document).on('change','.batch_setting_id,.class_id ,.session_id', function () {
+            getClassType();
+        });
+
+            function getClassType()
+            {
+                var class_id          = $('.class_id').val();
+                var session_id        = $('.session_id').val();
+                var batch_setting_id  = $('.batch_setting_id').val();
+                if(class_id && session_id)
+                {
+                    $.ajax({
+                        type: "get",
+                        url: "{{ route('get_class_type_by_batch_setting') }}",
+                        data: {class_id:class_id,session_id:session_id,batch_setting_id:batch_setting_id},
+                        success: function (data) {
+                            if(data.status == true)
+                            {
+                                $(".student_type_id").html(data.class_type);
+                            }else{
+                                $(".student_type_id").html(data.class_type);
+                            }
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+                    });
+                }
+            }
+            
+        });
+    </script>
 
 
 @endsection

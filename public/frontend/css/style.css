@@ -400,16 +400,9 @@ header {
     USER DASHBOARD
 ======================*/
 .dashboard-left {
-    width: 280px;
+    width: 300px;
     background: #F7F7FA;
     border-right: 1px solid #e6e6e6;
-}
-
-.dr-head img{
-    width: 100px;
-    border: 2px solid #d2d2d2;
-    border-radius: 50%;
-    padding: 3px;;
 }
 
 .dashboard-main {
@@ -511,25 +504,195 @@ header {
     opacity: .8;
 }
 
- 
+.gift-input input {
+    width: 100%;
+    display: block;
+    border: 1px solid var(--thc);
+}
+
+.gift-catr-form span {
+    text-transform: capitalize;
+    font-weight: 700;
+    display: block;
+    padding: 8px 0;
+}
+
+.gift-input-btn a {
+    float: right;
+}
 
 .btn-custom.custom {
     padding: 10px 60px;
 }
 
- 
+.gift-input-btn {
+    width: 220px;
+}
 
- 
+.nav-link.custom.active {
+    background: var(--wc);
+    color: var(--pc);
+    font-weight: 700;
+    border-bottom: 2px solid var(--sc-main);
+    border-radius: 0;
+}
 
- 
+.tab-content.r-custom {
+    background: var(--wc);
+}
 
-/* ====================
-user dashboard
-=======================*/
+.refund-box {
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(235, 236, 240);
+    box-shadow: rgb(173 193 207 / 26%) 0px 2px 10px;
+    margin-bottom: 30px;
+
+}
+
+.profile-box {
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(235, 236, 240);
+    box-shadow: rgb(173 193 207 / 26%) 0px 2px 10px;
+    margin-bottom: 30px;
+}
+
+.refund-box-head {
+    background-color: rgb(245, 248, 253);
+    padding: 15px 10px;
+}
+
+.profile-box-head {
+    background-color: rgb(245, 248, 253);
+    padding: 15px 10px;
+}
+
+.refund-box-head h6 {
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.refund-box-head p {
+    color: var(--thc);
+    margin-bottom: 0;
+}
+
+.refund-checkbox input {
+    height: 15px;
+    width: 15px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.refund-checkbox label i {
+    font-size: 18px;
+    margin-right: 8px;
+    color: var(--sc-main);
+}
+
+.refund-checkbox label {
+    font-weight: 700;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.profile-form-main div {
+    float: left;
+    width: 33.33%;
+    padding-right: 10px;
+}
+
+.profile-form-main div:last-child {
+    padding-right: 0;
+}
+
+.profile-form-main div input {
+    width: 100%;
+}
+
+.profile-form {
+    padding: 15px;
+}
+
+.profile-g-info a {
+    float: right;
+}
+
+/*MOBILE USER DASHBOARD*/
+.mobile-user-dashboard {
+    position: fixed;
+    top: 33%;
+    width: 250px;
+    background: var(--wc);
+    height: 100vh;
+    box-shadow: 3px 3px 10px -3px var(--sc);
+    left: -250px;
+    transition: .4s;
+    z-index: 2;
+}
+
+.mud-add {
+    left: 0;
+}
+
+.mud-logo {
+    padding: 15px;
+    background: var(--sc);
+}
+
+.mud-logo img {
+    width: 120px;
+}
+
+.mud-logo .mud-close {
+    float: right;
+}
+
+.mud-logo h6 {
+    font-size: 18px;
+    text-transform: capitalize;
+    font-weight: 700;
+    padding: 8px 0;
+    padding-bottom: 5px;
+    color: var(--wc);
+}
+
+.mud-logo a {
+    text-decoration: none;
+    color: var(--wc);
+}
+
+.mud-close i {
+    font-size: 20px;
+    padding: 5px;
+    color: var(--wc);
+    cursor: pointer;
+}
+
+.ud-mobile i {
+    padding: 5px 8px;
+    color: var(--sc);
+    font-size: 18px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.ud-mobile {
+    display: none;
+}
+
+/*MOBILE USER DASHBOARD*/
+
+/*=====================
+    END USER DASHBOARD
+======================*/
 
 /*=====================
      contect us page
 ======================*/
+
+.section-title{
+	text-align: center;
+}
 
 .contect-location p {
     font-size: 16px;
@@ -999,3 +1162,161 @@ login and reg page
 /*=====================
 	admit end
 ======================*/
+
+
+
+
+/*=====================
+    latcure sheet
+======================*/
+.lecuture-sheet-section{
+    background: var(--b2c);
+}
+.latcure-sheet-box{
+    padding: 20px 10px;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    background: var(--wc);
+    box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+    padding-bottom: 48px;
+    max-width: 340px;
+    margin: 0 auto;
+    margin-bottom: 25px;
+}
+.latcure-sheet-box:hover .latcure-box-overlay{
+    opacity: 1;
+}
+.latcure-box-overlay{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.42);
+    transition: .4s;
+    opacity: 0;
+}
+.latcure-box-overlay a{
+    background: red;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0);
+    position: relative;
+}
+.latcure-download{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    background: var(--pc);
+    width: 80%;
+    transform: translateX(-50%);
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 5px;
+    color: var(--wc);
+    text-transform: capitalize;
+}
+.latcure-download:hover{
+    background: rgba(0, 198, 255, 0.72);
+}
+.latcure-sheet-photo{
+    text-align: center;
+}
+.latcure-sheet-photo img{
+    width: 60%;
+    margin: 0 auto;
+    
+}
+.latcure-sheet-text h5{
+    font-size: 17px;
+    margin: 0;
+    padding-bottom: 5px;
+    text-align: center;
+}
+.latcure-sheet-text p{
+    margin: 0;
+    padding: 2px 0;
+    text-align: center;
+    color: #777;
+}
+.ls-price{
+    text-align: center;
+}
+.ls-price span{
+    padding: 0 8px;
+    font-weight: 600;
+    font-size: 17px;
+}
+.ls-price .descount{
+    color: #f14668;
+}
+.ls-price .sell{
+    color: var(--pc);
+}
+/*=====================
+    latcure sheet end
+======================*/
+
+/*=====================
+    latcure sheet details
+======================*/
+
+.lsd-photo img{
+    max-height: 400px;
+}
+.lsd-details ul li{
+    list-style: none;
+    padding: 8px 0;
+}
+.lsd-details ul li::before{
+    content: "ï˜";
+    font-family: FontAwesome;
+    display: inline-block;
+    margin-left: -1.8em;
+    width: 1.8em;
+}
+.more-details{
+    max-width: 800px;
+    margin: 0 auto;
+}
+.more-details h4{
+    text-align: center;
+    padding-bottom: 12px;
+}
+.lsd-download{
+    text-align: left;
+    padding-bottom: 10px;
+}
+.lsd-download button{
+    border: none;
+    padding: 8px 25px;
+    background: var(--pc);
+    margin-left: 20px;
+    color: var(--wc);
+    text-transform: capitalize;
+    cursor: pointer;
+    
+}
+.lsd-download button:hover{
+    background: rgba(0, 198, 255, 0.78);
+}
+.lsd-download button:focus{
+    border: none;
+    outline: none;
+}
+.ls-price.ls-details{
+    text-align: left;
+    margin-left: 10px;
+    padding-bottom: 5px;
+    max-width: 200px;
+    text-align: center;
+}
+/*=====================
+    latcure sheet details end
+======================*/
+
+
+

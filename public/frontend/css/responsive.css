@@ -3,6 +3,13 @@
 		padding-right: 0;
 		border-right: none;
 	}
+
+	 .nxt{
+        right: 42%;
+    }
+    .prv{
+        left: 42%;
+    }
 }
 
 @media only screen and (max-width:767px) {
@@ -33,6 +40,15 @@
 	.ht-right {
 		text-align: left;
 	}
+
+
+	.nxt{
+        right: 40%;
+    }
+    .prv{
+        left: 40%;
+    }
+
 }
 @media only screen and (max-width:575px) {
 	.ht-middle {
@@ -50,5 +66,45 @@
 	.ht-left span {
 		display: inline;
 	}
+
+	   .nxt{
+        right: 37%;
+    }
+    .prv{
+        left: 37%;
+    }
+
+}
+
+
+
+@media only screen and (max-width:905px) {
+    .sort-div {
+        display: block;
+        margin-right: 0;
+    }
+
+
+
+    .dashboard-left {
+        display: none;
+    }
+
+    .ud-mobile {
+        display: block;
+    }
+}
+
+
+@media only screen and (max-width:400px) {
+	.ht-left span {
+		display: inline;
+	}
+    .nxt{
+        right: 33%;
+    }
+    .prv{
+        left: 33%;
+    }
 
 }
